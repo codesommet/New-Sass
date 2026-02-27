@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'tenantActive' => \App\Http\Middleware\EnsureTenantIsActive::class,
             'setTenantContext' => \App\Http\Middleware\SetTenantContext::class,
             'isSuperAdmin' => \App\Http\Middleware\IsSuperAdmin::class,
+            'superAdminOnly' => \App\Http\Middleware\IsSuperAdmin::class,
+            'permission' => \App\Http\Middleware\RequirePermission::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

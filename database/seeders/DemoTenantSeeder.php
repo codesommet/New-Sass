@@ -1,0 +1,207 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Billing\Plan;
+use App\Models\Billing\Subscription;
+use App\Models\Tenancy\Tenant;
+use App\Models\Tenancy\TenantSetting;
+use App\Models\Tenancy\Role;
+use App\Models\Tenancy\Permission;
+use App\Models\User;
+use Illuminate\Database\Seeder;
+
+/**
+ * Seeds a demo tenant with domain, users, roles, and subscription.
+ * Intended for local development / staging only.
+ */
+class DemoTenantSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // 1) Create or find the demo tenant
+        $tenant = Tenant::firstOrCreate(
+            ['slug' => 'localhost'],
+            [
+                'name' => 'Localhost Tenant',
+                'status' => 'active',
+                'timezone' => 'Africa/Casablanca',
+                'default_currency' => 'MAD',
+                'has_free_trial' => false,
+            ]
+        );
+
+        // 2) Register local development domains
+        $localDomains = [
+            'localhost',
+            '127.0.0.1',
+            'localhost:8000',
+            '127.0.0.1:8000',
+        ];
+
+        foreach ($localDomains as $index => $domain) {
+            $tenant->domains()->firstOrCreate(
+                ['domain' => $domain],
+                ['is_primary' => ($index === 0)]
+            );
+        }
+
+        // 3) Create tenant settings
+        TenantSetting::firstOrCreate(
+            ['tenant_id' => $tenant->id],
+            [
+                'account_settings' => [
+                    'default_currency' => 'MAD',
+                    'date_format' => 'dd/MM/yyyy',
+                ],
+                'company_settings' => [
+                    'company_name' => 'Demo Company',
+                    'company_email' => 'info@demo.local',
+                ],
+                'localization_settings' => [
+                    'timezone' => 'Africa/Casablanca',
+                    'language' => 'fr',
+                ],
+                'invoice_settings' => [
+                    'prefix' => 'INV',
+                    'next_number' => 1,
+                ],
+                'updated_at' => now(),
+            ]
+        );
+
+        // 4) Create Super Admin user (tenant_id = NULL)
+        $superAdmin = User::firstOrCreate(
+            ['email' => 'superadmin@facturation.local'],
+            [
+                'tenant_id' => null,
+                'name' => 'Super Administrator',
+                'password' => bcrypt('superadmin123'),
+                'status' => 'active',
+                'email_verified_at' => now(),
+                'last_login_ip' => '127.0.0.1',
+            ]
+        );
+
+        // Assign super_admin role
+        $superAdminRole = Role::where('name', 'super_admin')
+            ->whereNull('tenant_id')
+            ->first();
+
+        if ($superAdminRole) {
+            $superAdmin->syncRoles([$superAdminRole]);
+        }
+
+        // 5) Create Company Administrator
+        $adminCompany = User::firstOrCreate(
+            ['email' => 'admin@localhost.local'],
+            [
+                'tenant_id' => $tenant->id,
+                'name' => 'Company Administrator',
+                'password' => bcrypt('admin123'),
+                'status' => 'active',
+                'email_verified_at' => now(),
+                'last_login_ip' => '127.0.0.1',
+            ]
+        );
+
+        // Create tenant-scoped admin role
+        $tenantAdminRole = Role::firstOrCreate([
+            'name' => 'admin',
+            'guard_name' => 'web',
+            'tenant_id' => $tenant->id,
+        ]);
+
+        // Assign all permissions to tenant admin
+        $allPermissions = Permission::whereNull('tenant_id')->get();
+        $tenantAdminRole->syncPermissions($allPermissions);
+        $adminCompany->syncRoles([$tenantAdminRole]);
+
+        // 6) Create test manager user
+        $testUser = User::firstOrCreate(
+            ['email' => 'rochdi.karouali@glszentrum.com'],
+            [
+                'tenant_id' => $tenant->id,
+                'name' => 'Rochdi Karouali',
+                'password' => bcrypt('password'),
+                'status' => 'active',
+                'email_verified_at' => now(),
+                'last_login_ip' => '127.0.0.1',
+            ]
+        );
+
+        $managerRole = Role::firstOrCreate([
+            'name' => 'manager',
+            'guard_name' => 'web',
+            'tenant_id' => $tenant->id,
+        ]);
+
+        $managerPermissions = Permission::whereNull('tenant_id')
+            ->whereIn('name', [
+                'sales.invoices.view',
+                'sales.invoices.create',
+                'sales.invoices.edit',
+                'crm.customers.view',
+                'crm.customers.create',
+                'crm.customers.edit',
+                'inventory.products.view',
+                'inventory.products.create',
+                'inventory.products.edit',
+                'reports.sales.view',
+            ])
+            ->get();
+
+        $managerRole->syncPermissions($managerPermissions);
+        $testUser->syncRoles([$managerRole]);
+
+        // 7) Create test receptionist user
+        $testUser2 = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'tenant_id' => $tenant->id,
+                'name' => 'Test User',
+                'password' => bcrypt('password'),
+                'status' => 'active',
+                'email_verified_at' => now(),
+                'last_login_ip' => '127.0.0.1',
+            ]
+        );
+
+        $receptionistRole = Role::firstOrCreate([
+            'name' => 'receptionist',
+            'guard_name' => 'web',
+            'tenant_id' => $tenant->id,
+        ]);
+
+        $receptionistPermissions = Permission::whereNull('tenant_id')
+            ->whereIn('name', [
+                'sales.invoices.view',
+                'sales.invoices.create',
+                'sales.quotes.view',
+                'sales.quotes.create',
+                'crm.customers.view',
+                'crm.customers.create',
+                'crm.customer_contacts.view',
+                'crm.customer_contacts.create',
+            ])
+            ->get();
+
+        $receptionistRole->syncPermissions($receptionistPermissions);
+        $testUser2->syncRoles([$receptionistRole]);
+
+        // 8) Assign Free plan subscription to demo tenant
+        $freePlan = Plan::where('code', 'free')->first();
+
+        if ($freePlan) {
+            Subscription::firstOrCreate(
+                ['tenant_id' => $tenant->id],
+                [
+                    'plan_id' => $freePlan->id,
+                    'status' => 'active',
+                    'starts_at' => now(),
+                    'ends_at' => null,
+                ]
+            );
+        }
+    }
+}

@@ -13,21 +13,20 @@ class Plan extends Model
 
     protected $fillable = [
         'name',
-        'slug',
-        'description',
-        'monthly_price',
-        'annual_price',
-        'billing_period',
-        'features',
-        'is_active',
+        'code',
+        'interval',
+        'price',
+        'currency',
         'trial_days',
+        'is_active',
+        'features',
     ];
 
     protected $casts = [
         'features' => 'json',
         'is_active' => 'boolean',
-        'monthly_price' => 'decimal:2',
-        'annual_price' => 'decimal:2',
+        'price' => 'decimal:2',
+        'trial_days' => 'integer',
     ];
 
     public function subscriptions(): HasMany

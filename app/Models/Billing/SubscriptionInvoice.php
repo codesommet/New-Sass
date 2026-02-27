@@ -2,15 +2,17 @@
 
 namespace App\Models\Billing;
 
+use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SubscriptionInvoice extends Model
 {
-    use HasUuids;
+    use HasUuids, BelongsToTenant;
 
     protected $fillable = [
+        'tenant_id',
         'subscription_id',
         'invoice_number',
         'amount',

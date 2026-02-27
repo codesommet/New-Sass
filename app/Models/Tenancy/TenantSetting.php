@@ -2,13 +2,13 @@
 
 namespace App\Models\Tenancy;
 
+use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TenantSetting extends Model
 {
-    use HasUuids;
+    use HasUuids, BelongsToTenant;
 
     public $timestamps = false;
 
@@ -34,9 +34,4 @@ class TenantSetting extends Model
         'integration_settings' => 'json',
         'modules_settings' => 'json',
     ];
-
-    public function tenant(): BelongsTo
-    {
-        return $this->belongsTo(Tenant::class);
-    }
 }
