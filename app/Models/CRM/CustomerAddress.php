@@ -2,27 +2,24 @@
 
 namespace App\Models\CRM;
 
+use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CustomerAddress extends Model
 {
-    use HasUuids;
+    use HasUuids, BelongsToTenant;
 
     protected $fillable = [
         'customer_id',
-        'address_type',
-        'street_address',
+        'type',
+        'line1',
+        'line2',
         'city',
-        'state',
+        'region',
         'postal_code',
         'country',
-        'is_default',
-    ];
-
-    protected $casts = [
-        'is_default' => 'boolean',
     ];
 
     public function customer(): BelongsTo

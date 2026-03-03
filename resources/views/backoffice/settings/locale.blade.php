@@ -26,13 +26,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Langue <span class="text-danger">*</span></label>
-                                                <select class="form-select @error('locale') is-invalid @enderror" name="locale">
-                                                    <option value="fr" {{ old('locale', $settings->localization_settings['locale'] ?? 'fr') === 'fr' ? 'selected' : '' }}>Français</option>
-                                                    <option value="en" {{ old('locale', $settings->localization_settings['locale'] ?? 'fr') === 'en' ? 'selected' : '' }}>English</option>
-                                                    <option value="ar" {{ old('locale', $settings->localization_settings['locale'] ?? 'fr') === 'ar' ? 'selected' : '' }}>العربية</option>
+                                                <label class="form-label">Langue <span class="badge badge-soft-warning ms-1">Bientôt disponible</span></label>
+                                                <input type="hidden" name="locale" value="fr">
+                                                <select class="form-select" disabled>
+                                                    <option selected>Français</option>
                                                 </select>
-                                                @error('locale')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -48,10 +46,14 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Devise</label>
-                                                <input type="text" class="form-control @error('currency') is-invalid @enderror"
-                                                    name="currency"
-                                                    value="{{ old('currency', $settings->localization_settings['currency'] ?? 'MAD') }}"
-                                                    placeholder="MAD" maxlength="3">
+                                                <select class="form-select @error('currency') is-invalid @enderror" name="currency">
+                                                    @foreach($currencies as $currency)
+                                                        <option value="{{ $currency->code }}"
+                                                            {{ old('currency', $settings->localization_settings['currency'] ?? 'MAD') === $currency->code ? 'selected' : '' }}>
+                                                            {{ $currency->code }} - {{ $currency->name }} ({{ $currency->symbol }})
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                                 @error('currency')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                             </div>
                                         </div>

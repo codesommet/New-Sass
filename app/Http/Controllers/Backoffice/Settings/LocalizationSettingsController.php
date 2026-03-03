@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backoffice\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\UpdateLocalizationSettingsRequest;
+use App\Models\Finance\Currency;
 use App\Models\Tenancy\TenantSetting;
 use App\Services\Tenancy\TenantContext;
 
@@ -13,8 +14,9 @@ class LocalizationSettingsController extends Controller
     {
         $tenant = TenantContext::get();
         $settings = $tenant->settings;
+        $currencies = Currency::orderBy('name')->get();
 
-        return view('backoffice.settings.locale', compact('settings'));
+        return view('backoffice.settings.locale', compact('settings', 'currencies'));
     }
 
     public function update(UpdateLocalizationSettingsRequest $request)

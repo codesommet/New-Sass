@@ -2,35 +2,96 @@
 
 namespace App\Http\Requests\Catalog\Update;
 
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-        $productId = $this->route('product');
+        $productId = $this->route('product')?->id ?? $this->route('product');
+
         return [
-            'name' => 'sometimes|required|string|max:255',
-            'sku' => "sometimes|required|string|unique:products,sku,{$productId}",
-            'description' => 'nullable|string',
-            'category_id' => 'sometimes|required|exists:product_categories,id',
-            'unit_id' => 'sometimes|required|exists:units,id',
-            'price' => 'sometimes|required|numeric|min:0',
-            'cost' => 'nullable|numeric|min:0',
-            'is_active' => 'boolean',
+            'item_type'       => ['required', 'in:product,service'],
+            'name'            => ['required', 'string', 'max:255'],
+            'code'            => [
+                'required', 'string', 'max:50',
+                Rule::unique('products', 'code')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($productId),
+            ],
+            'sku'             => [
+                'nullable', 'string', 'max:50',
+                Rule::unique('products', 'sku')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($productId),
+            ],
+            'category_id'     => [
+                'nullable',
+                Rule::exists('product_categories', 'id')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+            'unit_id'         => [
+                'nullable',
+                Rule::exists('units', 'id')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+            'description'     => ['nullable', 'string', 'max:5000'],
+            'selling_price'   => ['required', 'numeric', 'min:0'],
+            'purchase_price'  => ['nullable', 'numeric', 'min:0'],
+            'currency'        => ['nullable', 'string', 'size:3'],
+            'track_inventory' => ['nullable', 'boolean'],
+            'quantity'        => ['nullable', 'numeric', 'min:0'],
+            'alert_quantity'  => ['nullable', 'numeric', 'min:0'],
+            'barcode'         => ['nullable', 'string', 'max:100'],
+            'discount_type'   => ['nullable', 'in:none,percentage,fixed'],
+            'discount_value'  => ['nullable', 'numeric', 'min:0'],
+            'tax_category_id' => [
+                'nullable',
+                Rule::exists('tax_categories', 'id')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+            'is_active'       => ['nullable', 'boolean'],
+            'product_image'   => ['nullable', 'image', 'mimes:jpeg,png,webp', 'max:2048'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'item_type.required'      => "Le type d'article est obligatoire.",
+            'item_type.in'            => "Le type doit être « Produit » ou « Service ».",
+            'name.required'           => 'Le nom du produit est obligatoire.',
+            'name.max'                => 'Le nom ne doit pas dépasser 255 caractères.',
+            'code.required'           => 'Le code produit est obligatoire.',
+            'code.unique'             => 'Ce code produit est déjà utilisé.',
+            'sku.unique'              => 'Ce code SKU est déjà utilisé.',
+            'category_id.exists'      => 'La catégorie sélectionnée est invalide.',
+            'unit_id.exists'          => "L'unité sélectionnée est invalide.",
+            'selling_price.required'  => 'Le prix de vente est obligatoire.',
+            'selling_price.numeric'   => 'Le prix de vente doit être un nombre.',
+            'selling_price.min'       => 'Le prix de vente ne peut pas être négatif.',
+            'purchase_price.numeric'  => "Le prix d'achat doit être un nombre.",
+            'purchase_price.min'      => "Le prix d'achat ne peut pas être négatif.",
+            'currency.size'           => 'Le code devise doit contenir exactement 3 caractères.',
+            'quantity.numeric'        => 'La quantité doit être un nombre.',
+            'quantity.min'            => 'La quantité ne peut pas être négative.',
+            'alert_quantity.numeric'  => "La quantité d'alerte doit être un nombre.",
+            'alert_quantity.min'      => "La quantité d'alerte ne peut pas être négative.",
+            'barcode.max'             => 'Le code-barres ne doit pas dépasser 100 caractères.',
+            'discount_type.in'        => 'Le type de remise est invalide.',
+            'discount_value.numeric'  => 'La valeur de remise doit être un nombre.',
+            'discount_value.min'      => 'La valeur de remise ne peut pas être négative.',
+            'tax_category_id.exists'  => 'La catégorie de taxe sélectionnée est invalide.',
+            'product_image.image'     => 'Le fichier doit être une image.',
+            'product_image.mimes'     => "L'image doit être au format JPEG, PNG ou WebP.",
+            'product_image.max'       => "L'image ne doit pas dépasser 2 Mo.",
         ];
     }
 }

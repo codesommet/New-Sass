@@ -2,20 +2,21 @@
 
 namespace App\Models\CRM;
 
+use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CustomerContact extends Model
 {
-    use HasUuids;
+    use HasUuids, BelongsToTenant;
 
     protected $fillable = [
         'customer_id',
-        'contact_name',
-        'contact_email',
-        'contact_phone',
-        'contact_type',
+        'name',
+        'email',
+        'phone',
+        'position',
         'is_primary',
     ];
 

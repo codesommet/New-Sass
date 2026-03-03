@@ -5,52 +5,81 @@ namespace App\Http\Controllers\Backoffice\Catalog;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\Store\StoreTaxGroupRequest;
 use App\Http\Requests\Catalog\Update\UpdateTaxGroupRequest;
+use App\Models\Catalog\TaxCategory;
 use App\Models\Catalog\TaxGroup;
-use Illuminate\Http\Request;
+use App\Models\Catalog\TaxGroupRate;
+use App\Services\Tenancy\TenantContext;
+use Illuminate\Support\Facades\DB;
 
 class TaxGroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $groups = TaxGroup::paginate(15);
-        return response()->json($groups);
+        $taxCategories = TaxCategory::latest()->paginate(15, ['*'], 'tax_page');
+        $taxGroups = TaxGroup::with('rates')->latest()->paginate(15, ['*'], 'group_page');
+
+        return view('backoffice.catalog.tax-rates.index', compact('taxCategories', 'taxGroups'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreTaxGroupRequest $request)
     {
-        $group = TaxGroup::create($request->validated());
-        return response()->json($group, 201);
+        DB::transaction(function () use ($request) {
+            $data = $request->validated();
+            $rates = $data['rates'] ?? [];
+            unset($data['rates']);
+
+            $group = TaxGroup::create($data);
+
+            foreach ($rates as $index => $rate) {
+                $group->rates()->create([
+                    'name'     => $rate['name'],
+                    'rate'     => $rate['rate'],
+                    'position' => $rate['position'] ?? $index + 1,
+                ]);
+            }
+        });
+
+        return redirect()->back()->with('success', 'Groupe de taxes ajouté avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(TaxGroup $taxGroup)
-    {
-        return response()->json($taxGroup);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateTaxGroupRequest $request, TaxGroup $taxGroup)
     {
-        $taxGroup->update($request->validated());
-        return response()->json($taxGroup);
+        $this->assertSameTenant($taxGroup);
+
+        DB::transaction(function () use ($request, $taxGroup) {
+            $data = $request->validated();
+            $rates = $data['rates'] ?? [];
+            unset($data['rates']);
+
+            $taxGroup->update($data);
+
+            if ($request->has('rates')) {
+                $taxGroup->rates()->delete();
+                foreach ($rates as $index => $rate) {
+                    $taxGroup->rates()->create([
+                        'name'     => $rate['name'],
+                        'rate'     => $rate['rate'],
+                        'position' => $rate['position'] ?? $index + 1,
+                    ]);
+                }
+            }
+        });
+
+        return redirect()->back()->with('success', 'Groupe de taxes mis à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(TaxGroup $taxGroup)
     {
+        $this->assertSameTenant($taxGroup);
+
+        $taxGroup->rates()->delete();
         $taxGroup->delete();
-        return response()->json(null, 204);
+
+        return redirect()->back()->with('success', 'Groupe de taxes supprimé avec succès.');
+    }
+
+    private function assertSameTenant(TaxGroup $taxGroup): void
+    {
+        abort_unless($taxGroup->tenant_id === TenantContext::id(), 403);
     }
 }

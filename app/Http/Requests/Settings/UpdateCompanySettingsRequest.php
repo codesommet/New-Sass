@@ -28,6 +28,18 @@ class UpdateCompanySettingsRequest extends FormRequest
             'postal_code' => ['nullable', 'string', 'max:20'],
             'cropped_logo' => ['nullable', 'string'],
             'cropped_logo_deleted' => ['nullable', 'string'],
+            'logo' => ['nullable', 'image', 'max:2048'],
+            'dark_logo' => ['nullable', 'image', 'max:2048'],
+            'mini_logo' => ['nullable', 'image', 'max:2048'],
+            'dark_mini_logo' => ['nullable', 'image', 'max:2048'],
+            'favicon' => ['nullable', 'image', 'max:2048'],
+            'apple_icon' => ['nullable', 'image', 'max:2048'],
+            'delete_logo' => ['nullable', 'string'],
+            'delete_dark_logo' => ['nullable', 'string'],
+            'delete_mini_logo' => ['nullable', 'string'],
+            'delete_dark_mini_logo' => ['nullable', 'string'],
+            'delete_favicon' => ['nullable', 'string'],
+            'delete_apple_icon' => ['nullable', 'string'],
         ];
     }
 

@@ -6,51 +6,52 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\Store\StoreUnitRequest;
 use App\Http\Requests\Catalog\Update\UpdateUnitRequest;
 use App\Models\Catalog\Unit;
-use Illuminate\Http\Request;
+use App\Services\Tenancy\TenantContext;
 
 class UnitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $units = Unit::paginate(15);
-        return response()->json($units);
+        $units = Unit::withCount('products')
+            ->latest()
+            ->paginate(15);
+
+        return view('backoffice.catalog.units.index', compact('units'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreUnitRequest $request)
     {
-        $unit = Unit::create($request->validated());
-        return response()->json($unit, 201);
+        Unit::create($request->validated());
+
+        return redirect()->back()->with('success', 'Unité ajoutée avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Unit $unit)
-    {
-        return response()->json($unit);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateUnitRequest $request, Unit $unit)
     {
+        $this->assertSameTenant($unit);
+
         $unit->update($request->validated());
-        return response()->json($unit);
+
+        return redirect()->back()->with('success', 'Unité mise à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Unit $unit)
     {
+        $this->assertSameTenant($unit);
+
+        abort_if(
+            $unit->products()->exists(),
+            422,
+            'Impossible de supprimer une unité utilisée par des produits.'
+        );
+
         $unit->delete();
-        return response()->json(null, 204);
+
+        return redirect()->back()->with('success', 'Unité supprimée avec succès.');
+    }
+
+    private function assertSameTenant(Unit $unit): void
+    {
+        abort_unless($unit->tenant_id === TenantContext::id(), 403);
     }
 }

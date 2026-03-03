@@ -2,29 +2,47 @@
 
 namespace App\Http\Requests\Catalog\Update;
 
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTaxCategoryRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-        $categoryId = $this->route('taxCategory');
+        $categoryId = $this->route('tax_category')?->id ?? $this->route('tax_category');
+
         return [
-            'name' => "sometimes|required|string|max:255|unique:tax_categories,name,{$categoryId}",
-            'description' => 'nullable|string',
+            'name' => [
+                'required', 'string', 'max:255',
+                Rule::unique('tax_categories', 'name')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($categoryId),
+            ],
+            'rate'       => ['required', 'numeric', 'min:0', 'max:100'],
+            'type'       => ['required', 'in:percentage,fixed'],
+            'is_default' => ['nullable', 'boolean'],
+            'is_active'  => ['nullable', 'boolean'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le nom de la taxe est obligatoire.',
+            'name.max'      => 'Le nom ne doit pas dépasser 255 caractères.',
+            'name.unique'   => 'Ce nom de taxe est déjà utilisé.',
+            'rate.required' => 'Le taux est obligatoire.',
+            'rate.numeric'  => 'Le taux doit être un nombre.',
+            'rate.min'      => 'Le taux ne peut pas être négatif.',
+            'rate.max'      => 'Le taux ne doit pas dépasser 100.',
+            'type.required' => 'Le type de taxe est obligatoire.',
+            'type.in'       => 'Le type doit être « Pourcentage » ou « Fixe ».',
         ];
     }
 }

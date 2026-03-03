@@ -8,34 +8,55 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use HasUuids, SoftDeletes, BelongsToTenant;
+    use HasUuids, SoftDeletes, BelongsToTenant, InteractsWithMedia;
 
     protected $fillable = [
-        'product_category_id',
-        'unit_id',
+        'item_type',
         'name',
+        'code',
         'sku',
+        'slug',
+        'category_id',
+        'unit_id',
         'description',
-        'purchase_price',
         'selling_price',
-        'tax_group_id',
-        'product_image',
-        'status',
+        'purchase_price',
+        'currency',
         'track_inventory',
+        'quantity',
+        'alert_quantity',
+        'barcode',
+        'discount_type',
+        'discount_value',
+        'tax_category_id',
+        'is_active',
     ];
 
     protected $casts = [
-        'purchase_price' => 'decimal:2',
-        'selling_price' => 'decimal:2',
+        'selling_price'   => 'decimal:2',
+        'purchase_price'  => 'decimal:2',
+        'quantity'        => 'decimal:3',
+        'alert_quantity'  => 'decimal:3',
+        'discount_value'  => 'decimal:4',
         'track_inventory' => 'boolean',
+        'is_active'       => 'boolean',
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('product_image')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+    }
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+        return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
     public function unit(): BelongsTo
@@ -43,9 +64,9 @@ class Product extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    public function taxGroup(): BelongsTo
+    public function taxCategory(): BelongsTo
     {
-        return $this->belongsTo(TaxGroup::class);
+        return $this->belongsTo(TaxCategory::class);
     }
 
     public function stocks(): HasMany

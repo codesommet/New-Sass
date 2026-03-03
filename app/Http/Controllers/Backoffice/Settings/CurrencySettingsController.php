@@ -60,13 +60,15 @@ class CurrencySettingsController extends Controller
 
         $code = strtoupper($request->code);
 
-        // Create the currency
-        Currency::create([
-            'code' => $code,
-            'name' => $request->name,
-            'symbol' => $request->symbol,
-            'precision' => 2,
-        ]);
+        // Create or update the currency in the global table
+        Currency::updateOrCreate(
+            ['code' => $code],
+            [
+                'name' => $request->name,
+                'symbol' => $request->symbol,
+                'precision' => 2,
+            ]
+        );
 
         // Create the exchange rate for this tenant
         ExchangeRate::create([

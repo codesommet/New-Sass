@@ -156,6 +156,45 @@
                                 </ul>
                             </li>
 
+                            {{-- ─── CRM ─── --}}
+                            <li class="menu-title"><span>CRM</span></li>
+                            <li>
+                                <ul>
+                                    <li class="{{ request()->routeIs('bo.crm.customers.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.crm.customers.index') }}">
+                                            <i class="isax isax-people5"></i><span>Clients</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            {{-- ─── CATALOGUE ─── --}}
+                            <li class="menu-title"><span>Catalogue</span></li>
+                            <li>
+                                <ul>
+                                    <li class="{{ request()->routeIs('bo.catalog.products.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.catalog.products.index') }}">
+                                            <i class="isax isax-box-15"></i><span>Produits</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.catalog.categories.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.catalog.categories.index') }}">
+                                            <i class="isax isax-category-25"></i><span>Catégories</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.catalog.units.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.catalog.units.index') }}">
+                                            <i class="isax isax-ruler5"></i><span>Unités</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.catalog.tax-rates.*', 'bo.catalog.tax-categories.*', 'bo.catalog.tax-groups.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.catalog.tax-rates.index') }}">
+                                            <i class="isax isax-receipt-25"></i><span>Taxes</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                             {{-- ─── PARAMÈTRES ─── --}}
                             <li class="menu-title"><span>Paramètres</span></li>
                             <li>

@@ -5,53 +5,45 @@ namespace App\Http\Controllers\Backoffice\CRM;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CRM\Store\StoreCustomerAddressRequest;
 use App\Http\Requests\CRM\Update\UpdateCustomerAddressRequest;
+use App\Models\CRM\Customer;
 use App\Models\CRM\CustomerAddress;
-use Illuminate\Http\Request;
+use App\Services\Tenancy\TenantContext;
 
 class CustomerAddressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function store(StoreCustomerAddressRequest $request, Customer $customer)
     {
-        $addresses = CustomerAddress::with('customer')->paginate(15);
-        return response()->json($addresses);
+        $this->assertSameTenant($customer);
+
+        $customer->addresses()->create($request->safe()->except('customer_id'));
+
+        return redirect()->route('bo.crm.customers.show', $customer)
+            ->with('success', 'Adresse ajoutée avec succès.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCustomerAddressRequest $request)
+    public function update(UpdateCustomerAddressRequest $request, CustomerAddress $address)
     {
-        $address = CustomerAddress::create($request->validated());
-        return response()->json($address, 201);
+        abort_unless($address->tenant_id === TenantContext::id(), 403);
+
+        $address->update($request->validated());
+
+        return redirect()->route('bo.crm.customers.show', $address->customer_id)
+            ->with('success', 'Adresse mise à jour avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(CustomerAddress $customerAddress)
+    public function destroy(CustomerAddress $address)
     {
-        $customerAddress->load('customer');
-        return response()->json($customerAddress);
+        abort_unless($address->tenant_id === TenantContext::id(), 403);
+
+        $customerId = $address->customer_id;
+        $address->delete();
+
+        return redirect()->route('bo.crm.customers.show', $customerId)
+            ->with('success', 'Adresse supprimée avec succès.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCustomerAddressRequest $request, CustomerAddress $customerAddress)
+    private function assertSameTenant(Customer $customer): void
     {
-        $customerAddress->update($request->validated());
-        return response()->json($customerAddress);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(CustomerAddress $customerAddress)
-    {
-        $customerAddress->delete();
-        return response()->json(null, 204);
+        abort_unless($customer->tenant_id === TenantContext::id(), 403);
     }
 }

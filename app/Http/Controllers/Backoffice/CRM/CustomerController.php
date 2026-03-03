@@ -6,52 +6,98 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CRM\Store\StoreCustomerRequest;
 use App\Http\Requests\CRM\Update\UpdateCustomerRequest;
 use App\Models\CRM\Customer;
+use App\Models\Finance\Currency;
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::paginate(15);
-        return response()->json($customers);
+        $query = Customer::query()
+            ->withCount(['invoices', 'quotes']);
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+            });
+        }
+
+        if ($status = $request->input('status')) {
+            $query->where('status', $status);
+        }
+
+        if ($type = $request->input('type')) {
+            $query->where('type', $type);
+        }
+
+        $customers = $query->latest()->paginate(15)->withQueryString();
+
+        return view('backoffice.crm.customers.index', compact('customers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function create()
+    {
+        $currencies = Currency::orderBy('code')->get();
+
+        return view('backoffice.crm.customers.create', compact('currencies'));
+    }
+
     public function store(StoreCustomerRequest $request)
     {
-        $customer = Customer::create($request->validated());
-        return response()->json($customer, 201);
+        Customer::create($request->validated());
+
+        return redirect()->route('bo.crm.customers.index')
+            ->with('success', 'Client créé avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Customer $customer)
     {
-        $customer->load('addresses', 'contacts');
-        return response()->json($customer);
+        $this->assertSameTenant($customer);
+
+        $customer->load([
+            'addresses',
+            'contacts',
+            'invoices' => fn ($q) => $q->latest()->take(10),
+            'quotes' => fn ($q) => $q->latest()->take(5),
+        ]);
+
+        return view('backoffice.crm.customers.show', compact('customer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function edit(Customer $customer)
+    {
+        $this->assertSameTenant($customer);
+
+        $currencies = Currency::orderBy('code')->get();
+
+        return view('backoffice.crm.customers.edit', compact('customer', 'currencies'));
+    }
+
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
+        $this->assertSameTenant($customer);
+
         $customer->update($request->validated());
-        return response()->json($customer);
+
+        return redirect()->route('bo.crm.customers.index')
+            ->with('success', 'Client mis à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Customer $customer)
     {
+        $this->assertSameTenant($customer);
+
         $customer->delete();
-        return response()->json(null, 204);
+
+        return redirect()->route('bo.crm.customers.index')
+            ->with('success', 'Client supprimé avec succès.');
+    }
+
+    private function assertSameTenant(Customer $customer): void
+    {
+        abort_unless($customer->tenant_id === TenantContext::id(), 403);
     }
 }

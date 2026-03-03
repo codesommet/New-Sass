@@ -31,7 +31,7 @@
                                         {{-- Paramètres du site --}}
                                         <li class="submenu">
                                             <a href="javascript:void(0);"
-                                                class="{{ request()->routeIs('bo.settings.company.*', 'bo.settings.locale.*', 'bo.settings.currencies.*') ? 'active subdrop' : '' }}">
+                                                class="{{ request()->routeIs('bo.settings.company.*', 'bo.settings.locale.*', 'bo.settings.currencies.*', 'bo.settings.appearance.*') ? 'active subdrop' : '' }}">
                                                 <i class="isax isax-global fs-18"></i>
                                                 <span class="fs-14 fw-medium ms-2">Paramètres du site</span>
                                                 <span class="isax isax-arrow-down-1 arrow-menu ms-auto"></span>
@@ -44,13 +44,15 @@
                                                 </li>
                                                 <li><a href="{{ route('bo.settings.currencies.index') }}"
                                                         class="{{ request()->routeIs('bo.settings.currencies.*') ? 'active' : '' }}">Devises</a></li>
+                                                <li><a href="{{ route('bo.settings.appearance.edit') }}"
+                                                        class="{{ request()->routeIs('bo.settings.appearance.*') ? 'active' : '' }}">Apparence</a></li>
                                             </ul>
                                         </li>
 
                                         {{-- Paramètres de l'application --}}
                                         <li class="submenu">
                                             <a href="javascript:void(0);"
-                                                class="{{ request()->routeIs('bo.settings.invoice.*', 'bo.settings.invoice-templates.*', 'bo.settings.tax-rates.*', 'bo.settings.signatures.*', 'bo.settings.barcode.*') ? 'active subdrop' : '' }}">
+                                                class="{{ request()->routeIs('bo.settings.invoice.*', 'bo.settings.invoice-templates.*', 'bo.settings.email-templates.*', 'bo.settings.tax-rates.*', 'bo.settings.signatures.*', 'bo.settings.barcode.*') ? 'active subdrop' : '' }}">
                                                 <i class="isax isax-shapes fs-18"></i>
                                                 <span class="fs-14 fw-medium ms-2">Paramètres de l'application</span>
                                                 <span class="isax isax-arrow-down-1 arrow-menu ms-auto"></span>
@@ -62,6 +64,8 @@
                                                         class="{{ request()->routeIs('bo.settings.invoice-templates.*') ? 'active' : '' }}">Modèles de factures</a></li>
                                                 <li><a href="{{ route('bo.settings.tax-rates.index') }}"
                                                         class="{{ request()->routeIs('bo.settings.tax-rates.*') ? 'active' : '' }}">Taux de taxes</a></li>
+                                                <li><a href="{{ route('bo.settings.email-templates.index') }}"
+                                                        class="{{ request()->routeIs('bo.settings.email-templates.*') ? 'active' : '' }}">Modèles d'email</a></li>
                                                 <li><a href="{{ route('bo.settings.signatures.index') }}"
                                                         class="{{ request()->routeIs('bo.settings.signatures.*') ? 'active' : '' }}">Signatures électroniques</a></li>
                                                 <li><a href="{{ route('bo.settings.barcode.edit') }}"

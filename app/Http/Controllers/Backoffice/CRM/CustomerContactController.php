@@ -5,53 +5,45 @@ namespace App\Http\Controllers\Backoffice\CRM;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CRM\Store\StoreCustomerContactRequest;
 use App\Http\Requests\CRM\Update\UpdateCustomerContactRequest;
+use App\Models\CRM\Customer;
 use App\Models\CRM\CustomerContact;
-use Illuminate\Http\Request;
+use App\Services\Tenancy\TenantContext;
 
 class CustomerContactController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function store(StoreCustomerContactRequest $request, Customer $customer)
     {
-        $contacts = CustomerContact::with('customer')->paginate(15);
-        return response()->json($contacts);
+        $this->assertSameTenant($customer);
+
+        $customer->contacts()->create($request->safe()->except('customer_id'));
+
+        return redirect()->route('bo.crm.customers.show', $customer)
+            ->with('success', 'Contact ajouté avec succès.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCustomerContactRequest $request)
+    public function update(UpdateCustomerContactRequest $request, CustomerContact $contact)
     {
-        $contact = CustomerContact::create($request->validated());
-        return response()->json($contact, 201);
+        abort_unless($contact->tenant_id === TenantContext::id(), 403);
+
+        $contact->update($request->validated());
+
+        return redirect()->route('bo.crm.customers.show', $contact->customer_id)
+            ->with('success', 'Contact mis à jour avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(CustomerContact $customerContact)
+    public function destroy(CustomerContact $contact)
     {
-        $customerContact->load('customer');
-        return response()->json($customerContact);
+        abort_unless($contact->tenant_id === TenantContext::id(), 403);
+
+        $customerId = $contact->customer_id;
+        $contact->delete();
+
+        return redirect()->route('bo.crm.customers.show', $customerId)
+            ->with('success', 'Contact supprimé avec succès.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCustomerContactRequest $request, CustomerContact $customerContact)
+    private function assertSameTenant(Customer $customer): void
     {
-        $customerContact->update($request->validated());
-        return response()->json($customerContact);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(CustomerContact $customerContact)
-    {
-        $customerContact->delete();
-        return response()->json(null, 204);
+        abort_unless($customer->tenant_id === TenantContext::id(), 403);
     }
 }

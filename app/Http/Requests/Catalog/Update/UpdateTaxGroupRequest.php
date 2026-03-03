@@ -2,29 +2,47 @@
 
 namespace App\Http\Requests\Catalog\Update;
 
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTaxGroupRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-        $groupId = $this->route('taxGroup');
+        $groupId = $this->route('tax_group')?->id ?? $this->route('tax_group');
+
         return [
-            'name' => "sometimes|required|string|max:255|unique:tax_groups,name,{$groupId}",
-            'description' => 'nullable|string',
+            'name' => [
+                'required', 'string', 'max:255',
+                Rule::unique('tax_groups', 'name')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($groupId),
+            ],
+            'is_active'       => ['nullable', 'boolean'],
+            'rates'           => ['sometimes', 'array'],
+            'rates.*.name'    => ['required_with:rates', 'string', 'max:255'],
+            'rates.*.rate'    => ['required_with:rates', 'numeric', 'min:0', 'max:100'],
+            'rates.*.position' => ['nullable', 'integer', 'min:1'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required'          => 'Le nom du groupe de taxes est obligatoire.',
+            'name.max'               => 'Le nom ne doit pas dépasser 255 caractères.',
+            'name.unique'            => 'Ce nom de groupe est déjà utilisé.',
+            'rates.*.name.required_with' => 'Le nom de chaque taux est obligatoire.',
+            'rates.*.rate.required_with' => 'Le taux est obligatoire.',
+            'rates.*.rate.numeric'   => 'Le taux doit être un nombre.',
+            'rates.*.rate.min'       => 'Le taux ne peut pas être négatif.',
+            'rates.*.rate.max'       => 'Le taux ne doit pas dépasser 100.',
         ];
     }
 }

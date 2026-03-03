@@ -2,30 +2,46 @@
 
 namespace App\Http\Requests\Catalog\Update;
 
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUnitRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-        $unitId = $this->route('unit');
+        $unitId = $this->route('unit')?->id ?? $this->route('unit');
+
         return [
-            'name' => "sometimes|required|string|max:255|unique:units,name,{$unitId}",
-            'short_name' => "sometimes|required|string|max:10|unique:units,short_name,{$unitId}",
-            'description' => 'nullable|string',
+            'name' => [
+                'required', 'string', 'max:255',
+                Rule::unique('units', 'name')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($unitId),
+            ],
+            'short_name' => [
+                'required', 'string', 'max:10',
+                Rule::unique('units', 'short_name')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($unitId),
+            ],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required'       => "Le nom de l'unité est obligatoire.",
+            'name.max'            => 'Le nom ne doit pas dépasser 255 caractères.',
+            'name.unique'         => "Ce nom d'unité est déjà utilisé.",
+            'short_name.required' => "L'abréviation est obligatoire.",
+            'short_name.max'      => "L'abréviation ne doit pas dépasser 10 caractères.",
+            'short_name.unique'   => 'Cette abréviation est déjà utilisée.',
         ];
     }
 }

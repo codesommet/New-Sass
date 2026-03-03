@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Backoffice\AccountSettingsController;
+use App\Http\Controllers\Backoffice\Settings\AppearanceSettingsController;
 use App\Http\Controllers\Backoffice\Settings\BarcodeSettingsController;
 use App\Http\Controllers\Backoffice\Settings\CompanySettingsController;
 use App\Http\Controllers\Backoffice\Settings\CurrencySettingsController;
+use App\Http\Controllers\Backoffice\Settings\EmailTemplateSettingsController;
 use App\Http\Controllers\Backoffice\Settings\InvoiceSettingsController;
 use App\Http\Controllers\Backoffice\Settings\InvoiceTemplateSettingsController;
 use App\Http\Controllers\Backoffice\Settings\LocalizationSettingsController;
@@ -105,6 +107,21 @@ Route::prefix('settings/plans-billings')->as('settings.plans-billings.')->group(
 Route::prefix('settings/notifications')->as('settings.notifications.')->group(function () {
     Route::get('/', [NotificationSettingsController::class, 'edit'])->name('edit');
     Route::put('/', [NotificationSettingsController::class, 'update'])->name('update');
+});
+
+// Email Templates Settings
+Route::prefix('settings/email-templates')->as('settings.email-templates.')->group(function () {
+    Route::get('/', [EmailTemplateSettingsController::class, 'index'])->name('index');
+    Route::post('/', [EmailTemplateSettingsController::class, 'store'])->name('store');
+    Route::put('/{template}', [EmailTemplateSettingsController::class, 'update'])->name('update');
+    Route::put('/{template}/toggle', [EmailTemplateSettingsController::class, 'toggleStatus'])->name('toggle');
+    Route::delete('/{template}', [EmailTemplateSettingsController::class, 'destroy'])->name('destroy');
+});
+
+// Appearance Settings
+Route::prefix('settings/appearance')->as('settings.appearance.')->group(function () {
+    Route::get('/', [AppearanceSettingsController::class, 'edit'])->name('edit');
+    Route::put('/', [AppearanceSettingsController::class, 'update'])->name('update');
 });
 
 // Security Settings

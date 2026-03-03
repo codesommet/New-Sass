@@ -6,52 +6,126 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\Store\StoreProductRequest;
 use App\Http\Requests\Catalog\Update\UpdateProductRequest;
 use App\Models\Catalog\Product;
+use App\Models\Catalog\ProductCategory;
+use App\Models\Catalog\TaxCategory;
+use App\Models\Catalog\Unit;
+use App\Models\Finance\Currency;
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category', 'unit')->paginate(15);
-        return response()->json($products);
+        $query = Product::query()
+            ->with(['category', 'unit', 'taxCategory']);
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('code', 'like', "%{$search}%")
+                    ->orWhere('sku', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->input('category_id'));
+        }
+
+        if ($request->filled('status')) {
+            $query->where('is_active', $request->input('status') === 'active');
+        }
+
+        $products = $query->latest()->paginate(15)->withQueryString();
+
+        $categories = ProductCategory::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        return view('backoffice.catalog.products.index', compact('products', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function create()
+    {
+        $categories = ProductCategory::where('is_active', true)->orderBy('name')->get();
+        $units = Unit::orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
+        $currencies = Currency::orderBy('code')->get();
+
+        return view('backoffice.catalog.products.create', compact(
+            'categories', 'units', 'taxCategories', 'currencies'
+        ));
+    }
+
     public function store(StoreProductRequest $request)
     {
-        $product = Product::create($request->validated());
-        return response()->json($product, 201);
+        $data = $request->validated();
+        unset($data['product_image']);
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $product = Product::create($data);
+
+        if ($request->hasFile('product_image')) {
+            $product->addMediaFromRequest('product_image')
+                ->toMediaCollection('product_image');
+        }
+
+        return redirect()->route('bo.catalog.products.index')
+            ->with('success', 'Produit créé avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
+    public function edit(Product $product)
     {
-        $product->load('category', 'unit');
-        return response()->json($product);
+        $this->assertSameTenant($product);
+
+        $categories = ProductCategory::where('is_active', true)->orderBy('name')->get();
+        $units = Unit::orderBy('name')->get();
+        $taxCategories = TaxCategory::where('is_active', true)->orderBy('name')->get();
+        $currencies = Currency::orderBy('code')->get();
+
+        return view('backoffice.catalog.products.edit', compact(
+            'product', 'categories', 'units', 'taxCategories', 'currencies'
+        ));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->update($request->validated());
-        return response()->json($product);
+        $this->assertSameTenant($product);
+
+        $data = $request->validated();
+        unset($data['product_image']);
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name']);
+        }
+
+        $product->update($data);
+
+        if ($request->hasFile('product_image')) {
+            $product->addMediaFromRequest('product_image')
+                ->toMediaCollection('product_image');
+        }
+
+        return redirect()->route('bo.catalog.products.index')
+            ->with('success', 'Produit mis à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
+        $this->assertSameTenant($product);
+
         $product->delete();
-        return response()->json(null, 204);
+
+        return redirect()->route('bo.catalog.products.index')
+            ->with('success', 'Produit supprimé avec succès.');
+    }
+
+    private function assertSameTenant(Product $product): void
+    {
+        abort_unless($product->tenant_id === TenantContext::id(), 403);
     }
 }

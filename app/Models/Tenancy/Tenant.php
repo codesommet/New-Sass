@@ -49,6 +49,12 @@ class Tenant extends Model implements HasMedia
             ->useFallbackUrl(asset('build/img/icons/company-logo-01.svg'))
             ->useFallbackPath(public_path('build/img/icons/company-logo-01.svg'));
 
+        $this->addMediaCollection('dark_logo')->singleFile();
+        $this->addMediaCollection('mini_logo')->singleFile();
+        $this->addMediaCollection('dark_mini_logo')->singleFile();
+        $this->addMediaCollection('favicon')->singleFile();
+        $this->addMediaCollection('apple_icon')->singleFile();
+
         $this->addMediaCollection('invoice_image')
             ->singleFile();
     }
@@ -57,6 +63,31 @@ class Tenant extends Model implements HasMedia
     {
         return $this->getFirstMediaUrl('logo')
             ?: asset('build/img/icons/company-logo-01.svg');
+    }
+
+    public function getDarkLogoUrlAttribute(): string
+    {
+        return $this->getFirstMediaUrl('dark_logo') ?: '';
+    }
+
+    public function getMiniLogoUrlAttribute(): string
+    {
+        return $this->getFirstMediaUrl('mini_logo') ?: '';
+    }
+
+    public function getDarkMiniLogoUrlAttribute(): string
+    {
+        return $this->getFirstMediaUrl('dark_mini_logo') ?: '';
+    }
+
+    public function getFaviconUrlAttribute(): string
+    {
+        return $this->getFirstMediaUrl('favicon') ?: '';
+    }
+
+    public function getAppleIconUrlAttribute(): string
+    {
+        return $this->getFirstMediaUrl('apple_icon') ?: '';
     }
 
     public function getInvoiceImageUrlAttribute(): ?string

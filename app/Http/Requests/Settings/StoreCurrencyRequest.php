@@ -15,7 +15,7 @@ class StoreCurrencyRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:100'],
-            'code' => ['required', 'string', 'size:3', 'alpha', 'unique:currencies,code'],
+            'code' => ['required', 'string', 'size:3', 'alpha'],
             'symbol' => ['required', 'string', 'max:10'],
             'rate' => ['required', 'numeric', 'min:0.000001'],
             'is_default' => ['nullable', 'boolean'],
@@ -30,7 +30,6 @@ class StoreCurrencyRequest extends FormRequest
             'code.required' => 'Le code devise est obligatoire.',
             'code.size' => 'Le code devise doit contenir exactement 3 caractères.',
             'code.alpha' => 'Le code devise ne doit contenir que des lettres.',
-            'code.unique' => 'Ce code devise existe déjà.',
             'symbol.required' => 'Le symbole est obligatoire.',
             'symbol.max' => 'Le symbole ne doit pas dépasser 10 caractères.',
             'rate.required' => 'Le taux de change est obligatoire.',

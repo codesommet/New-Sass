@@ -17,7 +17,7 @@
                             <div class="mb-4 pb-4 border-bottom">
                                 <h6 class="fw-bold mb-0">Paramètres de l'entreprise</h6>
                             </div>
-                            <form action="{{ route('bo.settings.company.update') }}" method="POST">
+                            <form action="{{ route('bo.settings.company.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="border-bottom mb-4">
@@ -110,26 +110,260 @@
                                     </div>
                                 </div>
 
-                                {{-- Company Logo --}}
+                                {{-- Company Images --}}
                                 <div class="border-bottom mb-4 pb-3">
                                     <div class="card-title-head">
                                         <h6 class="fs-16 fw-semibold mb-3 d-flex align-items-center">
                                             <span
                                                 class="fs-16 me-2 p-1 rounded bg-dark text-white d-inline-flex align-items-center justify-content-center"><i
                                                     class="isax isax-image"></i></span>
-                                            Logo de l'entreprise
+                                            Images de l'entreprise
                                         </h6>
                                     </div>
-                                    @include('backoffice.components.avatar-cropper', [
-                                        'currentUrl'  => $tenant->logo_url,
-                                        'defaultUrl'  => asset('build/img/icons/company-logo-01.svg'),
-                                        'inputName'   => 'cropped_logo',
-                                        'previewId'   => 'company-logo-preview',
-                                        'hasImage'    => $tenant->hasMedia('logo'),
-                                        'alt'         => $settings->company_settings['company_name'] ?? 'Logo',
-                                        'label'       => 'Logo',
-                                        'required'    => false,
-                                    ])
+
+                                    {{-- Logo --}}
+                                    <div class="row align-items-center pb-3 mb-3 border-bottom">
+                                        <div class="col-xl-9">
+                                            <div class="row gy-3 align-items-center">
+                                                <div class="col-lg-6">
+                                                    <div class="logo-info">
+                                                        <h6 class="fs-14 fw-medium mb-1">Logo</h6>
+                                                        <p class="fs-12">Téléchargez le logo de votre entreprise</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="profile-pic-upload mb-0 justify-content-lg-end">
+                                                        <div class="new-employee-field">
+                                                            <div class="mb-0">
+                                                                <div class="image-upload mb-1">
+                                                                    <input type="file" name="logo" accept="image/*">
+                                                                    <div class="image-uploads">
+                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="new-logo ms-xl-auto bg-light border">
+                                                <img src="{{ $tenant->logo_url }}" alt="Logo">
+                                                @if($tenant->hasMedia('logo'))
+                                                    <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
+                                                        onclick="document.getElementById('delete_logo').value='1'"><i class="isax isax-trash"></i></a>
+                                                    <input type="hidden" name="delete_logo" id="delete_logo" value="0">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Dark Logo --}}
+                                    <div class="row align-items-center pb-3 mb-3 border-bottom">
+                                        <div class="col-xl-9">
+                                            <div class="row gy-3 align-items-center">
+                                                <div class="col-lg-6">
+                                                    <div class="logo-info">
+                                                        <h6 class="fs-14 fw-medium mb-1">Logo sombre</h6>
+                                                        <p class="fs-12">Téléchargez le logo sombre de votre entreprise</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="profile-pic-upload mb-0 justify-content-lg-end">
+                                                        <div class="new-employee-field">
+                                                            <div class="mb-0">
+                                                                <div class="image-upload mb-1">
+                                                                    <input type="file" name="dark_logo" accept="image/*">
+                                                                    <div class="image-uploads">
+                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="new-logo ms-xl-auto bg-dark border">
+                                                @if($tenant->dark_logo_url)
+                                                    <img src="{{ $tenant->dark_logo_url }}" alt="Logo sombre">
+                                                    <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
+                                                        onclick="document.getElementById('delete_dark_logo').value='1'"><i class="isax isax-trash"></i></a>
+                                                    <input type="hidden" name="delete_dark_logo" id="delete_dark_logo" value="0">
+                                                @else
+                                                    <img src="{{ asset('build/img/settings/company-setting-2.svg') }}" alt="Logo sombre">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Mini Logo --}}
+                                    <div class="row align-items-center pb-3 mb-3 border-bottom">
+                                        <div class="col-xl-9">
+                                            <div class="row gy-3 align-items-center">
+                                                <div class="col-lg-6">
+                                                    <div class="logo-info">
+                                                        <h6 class="fs-14 fw-medium mb-1">Mini Logo</h6>
+                                                        <p class="fs-12">Téléchargez le mini logo de votre entreprise</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="profile-pic-upload mb-0 justify-content-lg-end">
+                                                        <div class="new-employee-field">
+                                                            <div class="mb-0">
+                                                                <div class="image-upload mb-1">
+                                                                    <input type="file" name="mini_logo" accept="image/*">
+                                                                    <div class="image-uploads">
+                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="new-logo ms-xl-auto bg-light border">
+                                                @if($tenant->mini_logo_url)
+                                                    <img src="{{ $tenant->mini_logo_url }}" alt="Mini Logo">
+                                                    <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
+                                                        onclick="document.getElementById('delete_mini_logo').value='1'"><i class="isax isax-trash"></i></a>
+                                                    <input type="hidden" name="delete_mini_logo" id="delete_mini_logo" value="0">
+                                                @else
+                                                    <img src="{{ asset('build/img/settings/company-setting-1.svg') }}" alt="Mini Logo">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Dark Mini Logo --}}
+                                    <div class="row align-items-center pb-3 mb-3 border-bottom">
+                                        <div class="col-xl-9">
+                                            <div class="row gy-3 align-items-center">
+                                                <div class="col-lg-6">
+                                                    <div class="logo-info">
+                                                        <h6 class="fs-14 fw-medium mb-1">Mini Logo sombre</h6>
+                                                        <p class="fs-12">Téléchargez le mini logo sombre de votre entreprise</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="profile-pic-upload mb-0 justify-content-lg-end">
+                                                        <div class="new-employee-field">
+                                                            <div class="mb-0">
+                                                                <div class="image-upload mb-1">
+                                                                    <input type="file" name="dark_mini_logo" accept="image/*">
+                                                                    <div class="image-uploads">
+                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="new-logo ms-xl-auto bg-dark border">
+                                                @if($tenant->dark_mini_logo_url)
+                                                    <img src="{{ $tenant->dark_mini_logo_url }}" alt="Mini Logo sombre">
+                                                    <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
+                                                        onclick="document.getElementById('delete_dark_mini_logo').value='1'"><i class="isax isax-trash"></i></a>
+                                                    <input type="hidden" name="delete_dark_mini_logo" id="delete_dark_mini_logo" value="0">
+                                                @else
+                                                    <img src="{{ asset('build/img/settings/company-setting-4.svg') }}" alt="Mini Logo sombre">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Favicon --}}
+                                    <div class="row align-items-center pb-3 mb-3 border-bottom">
+                                        <div class="col-xl-9">
+                                            <div class="row gy-3 align-items-center">
+                                                <div class="col-lg-6">
+                                                    <div class="logo-info">
+                                                        <h6 class="fs-14 fw-medium mb-1">Favicon</h6>
+                                                        <p class="fs-12">Téléchargez le favicon de votre entreprise</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="profile-pic-upload mb-0 justify-content-lg-end">
+                                                        <div class="new-employee-field">
+                                                            <div class="mb-0">
+                                                                <div class="image-upload mb-1">
+                                                                    <input type="file" name="favicon" accept="image/*">
+                                                                    <div class="image-uploads">
+                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="new-logo ms-xl-auto bg-light border">
+                                                @if($tenant->favicon_url)
+                                                    <img src="{{ $tenant->favicon_url }}" alt="Favicon">
+                                                    <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
+                                                        onclick="document.getElementById('delete_favicon').value='1'"><i class="isax isax-trash"></i></a>
+                                                    <input type="hidden" name="delete_favicon" id="delete_favicon" value="0">
+                                                @else
+                                                    <img src="{{ asset('build/img/settings/company-setting-3.svg') }}" alt="Favicon">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- Apple Icon --}}
+                                    <div class="row align-items-center">
+                                        <div class="col-xl-9">
+                                            <div class="row gy-3 align-items-center">
+                                                <div class="col-lg-6">
+                                                    <div class="logo-info">
+                                                        <h6 class="fs-14 fw-medium mb-1">Icône Apple</h6>
+                                                        <p class="fs-12">Téléchargez l'icône Apple de votre entreprise</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="profile-pic-upload mb-0 justify-content-lg-end">
+                                                        <div class="new-employee-field">
+                                                            <div class="mb-0">
+                                                                <div class="image-upload mb-1">
+                                                                    <input type="file" name="apple_icon" accept="image/*">
+                                                                    <div class="image-uploads">
+                                                                        <h4><i class="ti ti-upload me-1"></i>Changer la photo</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="fs-12">Taille recommandée : 250 px × 100 px</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3">
+                                            <div class="new-logo ms-xl-auto bg-light border">
+                                                @if($tenant->apple_icon_url)
+                                                    <img src="{{ $tenant->apple_icon_url }}" alt="Icône Apple">
+                                                    <a href="javascript:void(0);" class="logo-trash bg-white text-danger me-1 mt-1"
+                                                        onclick="document.getElementById('delete_apple_icon').value='1'"><i class="isax isax-trash"></i></a>
+                                                    <input type="hidden" name="delete_apple_icon" id="delete_apple_icon" value="0">
+                                                @else
+                                                    <img src="{{ asset('build/img/settings/company-setting-3.svg') }}" alt="Icône Apple">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="company-address pb-2 mb-4 border-bottom">

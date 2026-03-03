@@ -6,51 +6,43 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Catalog\Store\StoreTaxCategoryRequest;
 use App\Http\Requests\Catalog\Update\UpdateTaxCategoryRequest;
 use App\Models\Catalog\TaxCategory;
-use Illuminate\Http\Request;
+use App\Services\Tenancy\TenantContext;
 
 class TaxCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $categories = TaxCategory::paginate(15);
-        return response()->json($categories);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreTaxCategoryRequest $request)
     {
-        $category = TaxCategory::create($request->validated());
-        return response()->json($category, 201);
+        TaxCategory::create($request->validated());
+
+        return redirect()->back()->with('success', 'Taux de taxe ajouté avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(TaxCategory $taxCategory)
-    {
-        return response()->json($taxCategory);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateTaxCategoryRequest $request, TaxCategory $taxCategory)
     {
+        $this->assertSameTenant($taxCategory);
+
         $taxCategory->update($request->validated());
-        return response()->json($taxCategory);
+
+        return redirect()->back()->with('success', 'Taux de taxe mis à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(TaxCategory $taxCategory)
     {
+        $this->assertSameTenant($taxCategory);
+
+        abort_if(
+            $taxCategory->products()->exists(),
+            422,
+            'Impossible de supprimer une taxe utilisée par des produits.'
+        );
+
         $taxCategory->delete();
-        return response()->json(null, 204);
+
+        return redirect()->back()->with('success', 'Taux de taxe supprimé avec succès.');
+    }
+
+    private function assertSameTenant(TaxCategory $taxCategory): void
+    {
+        abort_unless($taxCategory->tenant_id === TenantContext::id(), 403);
     }
 }

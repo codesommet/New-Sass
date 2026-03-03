@@ -2,29 +2,41 @@
 
 namespace App\Http\Requests\Catalog\Store;
 
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductCategoryRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:product_categories',
-            'description' => 'nullable|string',
-            'parent_id' => 'nullable|exists:product_categories,id',
+            'name' => [
+                'required', 'string', 'max:255',
+                Rule::unique('product_categories', 'name')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+            'slug' => [
+                'nullable', 'string', 'max:255',
+                Rule::unique('product_categories', 'slug')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+            'is_active' => ['nullable', 'boolean'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le nom de la catégorie est obligatoire.',
+            'name.max'      => 'Le nom ne doit pas dépasser 255 caractères.',
+            'name.unique'   => 'Ce nom de catégorie est déjà utilisé.',
+            'slug.unique'   => 'Ce slug est déjà utilisé.',
         ];
     }
 }

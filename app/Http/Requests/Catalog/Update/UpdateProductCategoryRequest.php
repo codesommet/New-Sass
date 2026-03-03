@@ -2,30 +2,45 @@
 
 namespace App\Http\Requests\Catalog\Update;
 
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductCategoryRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
-        $categoryId = $this->route('productCategory');
+        $categoryId = $this->route('category')?->id ?? $this->route('category');
+
         return [
-            'name' => "sometimes|required|string|max:255|unique:product_categories,name,{$categoryId}",
-            'description' => 'nullable|string',
-            'parent_id' => "nullable|exists:product_categories,id|not_in:{$categoryId}",
+            'name' => [
+                'required', 'string', 'max:255',
+                Rule::unique('product_categories', 'name')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($categoryId),
+            ],
+            'slug' => [
+                'nullable', 'string', 'max:255',
+                Rule::unique('product_categories', 'slug')
+                    ->where('tenant_id', TenantContext::id())
+                    ->ignore($categoryId),
+            ],
+            'is_active' => ['nullable', 'boolean'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Le nom de la catégorie est obligatoire.',
+            'name.max'      => 'Le nom ne doit pas dépasser 255 caractères.',
+            'name.unique'   => 'Ce nom de catégorie est déjà utilisé.',
+            'slug.unique'   => 'Ce slug est déjà utilisé.',
         ];
     }
 }

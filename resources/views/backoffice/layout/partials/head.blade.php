@@ -4,7 +4,27 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('build/img/favicon.png') }}">
 
-@if(!Route::is(['signin', 'signup','coming-soon', 'error-404', 'error-500','free-trial', 'under-construction', 'bus-booking-invoice', 'car-booking-invoice','change-password','forgot-password','lock-screen','general-invoice-1', 'general-invoice-1a', 'general-invoice-2', 'general-invoice-2a', 'general-invoice-3', 'general-invoice-4', 'general-invoice-5', 'general-invoice-6', 'general-invoice-7', 'general-invoice-8', 'general-invoice-9', 'general-invoice-10', 'domain-hosting-invoice', 'coffee-shop-invoice', 'ecommerce-invoice','invoice-medical','domain-hosting-invoice', 'ecommerce-invoice', 'email-verification', 'error-404', 'error-500', 'layout-default', 'layout-dark', 'layout-mini', 'layout-rtl', 'layout-single', 'layout-transparent', 'layout-without-header', 'lock-screen', 'login', 'money-exchange-invoice', 'movie-ticket-booking-invoice', 'change-password','forgot-password','general-invoice-1', 'student-billing-invoice', 'success', 'train-ticket-invoice', 'two-step-verification', 'under-construction', 'under-maintenance', 'fitness-center-invoice', 'flight-booking-invoice', 'hotel-booking-invoice','restaurants-invoice','reset-password','register','receipt-invoice-1','receipt-invoice-2','receipt-invoice-3','receipt-invoice-4', 'internet-billing-invoice'])) 
+@if(!Route::is(['signin', 'signup','coming-soon', 'error-404', 'error-500','free-trial', 'under-construction', 'bus-booking-invoice', 'car-booking-invoice','change-password','forgot-password','lock-screen','general-invoice-1', 'general-invoice-1a', 'general-invoice-2', 'general-invoice-2a', 'general-invoice-3', 'general-invoice-4', 'general-invoice-5', 'general-invoice-6', 'general-invoice-7', 'general-invoice-8', 'general-invoice-9', 'general-invoice-10', 'domain-hosting-invoice', 'coffee-shop-invoice', 'ecommerce-invoice','invoice-medical','domain-hosting-invoice', 'ecommerce-invoice', 'email-verification', 'error-404', 'error-500', 'layout-default', 'layout-dark', 'layout-mini', 'layout-rtl', 'layout-single', 'layout-transparent', 'layout-without-header', 'lock-screen', 'login', 'money-exchange-invoice', 'movie-ticket-booking-invoice', 'change-password','forgot-password','general-invoice-1', 'student-billing-invoice', 'success', 'train-ticket-invoice', 'two-step-verification', 'under-construction', 'under-maintenance', 'fitness-center-invoice', 'flight-booking-invoice', 'hotel-booking-invoice','restaurants-invoice','reset-password','register','receipt-invoice-1','receipt-invoice-2','receipt-invoice-3','receipt-invoice-4', 'internet-billing-invoice']))
+    <!-- Sync server appearance settings to localStorage (runs before theme-script) -->
+    @if(!empty($appearanceSettings))
+    <script>
+        (function() {
+            var s = @json($appearanceSettings);
+            if (s.theme) localStorage.setItem('theme', s.theme);
+            if (s.theme === 'dark') localStorage.setItem('darkMode', 'enabled');
+            else if (s.theme === 'light') localStorage.setItem('darkMode', 'disabled');
+            if (s.layout) localStorage.setItem('layout', s.layout);
+            if (s.layout_width) localStorage.setItem('width', s.layout_width);
+            if (s.sidebar_color) localStorage.setItem('sidebarTheme', s.sidebar_color);
+            if (s.sidebar_size) localStorage.setItem('size', s.sidebar_size);
+            if (s.topbar_color) localStorage.setItem('topbar', s.topbar_color);
+            if (s.sidebar_bg) localStorage.setItem('sidebarBg', s.sidebar_bg);
+            else localStorage.removeItem('sidebarBg');
+            if (s.theme_color) localStorage.setItem('color', s.theme_color);
+            if (s.font_family) localStorage.setItem('fontFamily', s.font_family);
+        })();
+    </script>
+    @endif
     <!-- Theme Script js -->
     <script src="{{URL::asset('build/js/theme-script.js')}}?v={{ filemtime(public_path('build/js/theme-script.js')) }}"></script>
 @endif

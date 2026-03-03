@@ -5,6 +5,7 @@ namespace App\Models\Catalog;
 use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TaxCategory extends Model
 {
@@ -23,4 +24,9 @@ class TaxCategory extends Model
         'is_default' => 'boolean',
         'is_active' => 'boolean',
     ];
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }

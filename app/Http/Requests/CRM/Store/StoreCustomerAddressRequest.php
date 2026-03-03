@@ -2,34 +2,51 @@
 
 namespace App\Http\Requests\CRM\Store;
 
+use App\Services\Tenancy\TenantContext;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCustomerAddressRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            'customer_id' => 'required|exists:customers,id',
-            'address_type' => 'required|in:billing,shipping,both',
-            'street' => 'required|string|max:255',
-            'city' => 'required|string|max:100',
-            'state' => 'nullable|string|max:100',
-            'postal_code' => 'required|string|max:20',
-            'country' => 'required|string|max:100',
-            'is_default' => 'boolean',
+            'customer_id' => [
+                'required',
+                Rule::exists('customers', 'id')
+                    ->where('tenant_id', TenantContext::id()),
+            ],
+            'type' => ['required', 'in:billing,shipping'],
+            'line1' => ['required', 'string', 'max:255'],
+            'line2' => ['nullable', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:100'],
+            'region' => ['nullable', 'string', 'max:100'],
+            'postal_code' => ['nullable', 'string', 'max:20'],
+            'country' => ['required', 'string', 'max:100'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'customer_id.required' => 'Le client est obligatoire.',
+            'customer_id.exists' => "Le client sélectionné n'existe pas.",
+            'type.required' => "Le type d'adresse est obligatoire.",
+            'type.in' => "Le type d'adresse doit être « Facturation » ou « Livraison ».",
+            'line1.required' => "L'adresse (ligne 1) est obligatoire.",
+            'line1.max' => "L'adresse (ligne 1) ne doit pas dépasser 255 caractères.",
+            'line2.max' => "L'adresse (ligne 2) ne doit pas dépasser 255 caractères.",
+            'city.required' => 'La ville est obligatoire.',
+            'city.max' => 'La ville ne doit pas dépasser 100 caractères.',
+            'region.max' => 'La région ne doit pas dépasser 100 caractères.',
+            'postal_code.max' => 'Le code postal ne doit pas dépasser 20 caractères.',
+            'country.required' => 'Le pays est obligatoire.',
+            'country.max' => 'Le pays ne doit pas dépasser 100 caractères.',
         ];
     }
 }

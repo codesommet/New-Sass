@@ -1,0 +1,139 @@
+<?php $page = 'customers'; ?>
+@extends('backoffice.layout.mainlayout')
+@section('content')
+    <!-- ========================
+            Start Page Content
+        ========================= -->
+
+    <div class="page-wrapper">
+
+        <!-- Start Content -->
+        <div class="content">
+
+            <!-- start row -->
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6><a href="{{ route('bo.crm.customers.index') }}"><i class="isax isax-arrow-left me-2"></i>Clients</a></h6>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="mb-3">Nouveau client</h5>
+
+                                @if($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <ul class="mb-0">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    </div>
+                                @endif
+
+                                <form action="{{ route('bo.crm.customers.store') }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <h6 class="text-gray-9 fw-bold mb-2 d-flex">Informations générales</h6>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Nom <span class="text-danger ms-1">*</span></label>
+                                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
+                                                @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">E-mail</label>
+                                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+                                                @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Téléphone</label>
+                                                <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}">
+                                                @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Type <span class="text-danger ms-1">*</span></label>
+                                                <select class="form-select @error('type') is-invalid @enderror" name="type">
+                                                    <option value="">-- Sélectionner --</option>
+                                                    <option value="individual" {{ old('type') === 'individual' ? 'selected' : '' }}>Particulier</option>
+                                                    <option value="company" {{ old('type') === 'company' ? 'selected' : '' }}>Entreprise</option>
+                                                </select>
+                                                @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Identifiant fiscal</label>
+                                                <input type="text" class="form-control @error('tax_id') is-invalid @enderror" name="tax_id" value="{{ old('tax_id') }}">
+                                                @error('tax_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Devise</label>
+                                                <select class="form-select @error('currency') is-invalid @enderror" name="currency">
+                                                    <option value="">-- Sélectionner --</option>
+                                                    @foreach($currencies as $currency)
+                                                        <option value="{{ $currency->code }}" {{ old('currency') === $currency->code ? 'selected' : '' }}>{{ $currency->code }} — {{ $currency->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('currency')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Délai de paiement (jours)</label>
+                                                <input type="number" class="form-control @error('payment_terms_days') is-invalid @enderror" name="payment_terms_days" value="{{ old('payment_terms_days', 0) }}" min="0" max="365">
+                                                @error('payment_terms_days')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Statut <span class="text-danger ms-1">*</span></label>
+                                                <select class="form-select @error('status') is-invalid @enderror" name="status">
+                                                    <option value="active" {{ old('status', 'active') === 'active' ? 'selected' : '' }}>Actif</option>
+                                                    <option value="inactive" {{ old('status') === 'inactive' ? 'selected' : '' }}>Inactif</option>
+                                                </select>
+                                                @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Notes</label>
+                                                <input type="text" class="form-control @error('notes') is-invalid @enderror" name="notes" value="{{ old('notes') }}">
+                                                @error('notes')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between pt-4 border-top">
+                                        <a href="{{ route('bo.crm.customers.index') }}" class="btn btn-outline-white">Annuler</a>
+                                        <button type="submit" class="btn btn-primary">Créer le client</button>
+                                    </div>
+                                </form>
+                            </div><!-- end card body -->
+                        </div><!-- end card -->
+                    </div>
+                </div><!-- end col -->
+            </div>
+            <!-- end row -->
+
+            @component('backoffice.components.footer')
+            @endcomponent
+        </div>
+        <!-- End Content -->
+
+    </div>
+
+    <!-- ========================
+            End Page Content
+        ========================= -->
+@endsection
