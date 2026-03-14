@@ -11,16 +11,16 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Journal d'activité</h6>
+                    <h6>{{ __("Journal d'activité") }}</h6>
                     <div class="d-flex gap-2 mt-1">
-                        <span class="badge badge-soft-primary">{{ $totalLogs }} au total</span>
-                        <span class="badge badge-soft-success">{{ $todayLogs }} aujourd'hui</span>
+                        <span class="badge badge-soft-primary">{{ $totalLogs }} {{ __('au total') }}</span>
+                        <span class="badge badge-soft-success">{{ $todayLogs }} {{ __("aujourd'hui") }}</span>
                     </div>
                 </div>
                 <div>
                     <a href="#" class="btn btn-outline-white d-flex align-items-center" data-bs-toggle="modal"
                         data-bs-target="#clear_logs">
-                        <i class="isax isax-trash me-1"></i> Purger les anciens logs
+                        <i class="isax isax-trash me-1"></i> {{ __('Purger les anciens logs') }}
                     </a>
                 </div>
             </div>
@@ -46,15 +46,15 @@
                     <form method="GET" action="{{ route('sa.activity-logs.index') }}">
                         <div class="row g-3 align-items-end">
                             <div class="col-md-3">
-                                <label class="form-label">Rechercher</label>
+                                <label class="form-label">{{ __('Rechercher') }}</label>
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Utilisateur, action, IP..."
+                                    placeholder="{{ __('Utilisateur, action, IP...') }}"
                                     value="{{ request('search') }}">
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">Tenant</label>
+                                <label class="form-label">{{ __('Tenant') }}</label>
                                 <select name="tenant_id" class="form-select">
-                                    <option value="">Tous les tenants</option>
+                                    <option value="">{{ __('Tous les tenants') }}</option>
                                     @foreach ($tenants as $tenant)
                                         <option value="{{ $tenant->id }}"
                                             {{ request('tenant_id') == $tenant->id ? 'selected' : '' }}>
@@ -64,9 +64,9 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">Action</label>
+                                <label class="form-label">{{ __('Action') }}</label>
                                 <select name="action" class="form-select">
-                                    <option value="">Toutes les actions</option>
+                                    <option value="">{{ __('Toutes les actions') }}</option>
                                     @foreach ($actions as $action)
                                         <option value="{{ $action }}"
                                             {{ request('action') == $action ? 'selected' : '' }}>
@@ -76,12 +76,12 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">Du</label>
+                                <label class="form-label">{{ __('Du') }}</label>
                                 <input type="date" name="date_from" class="form-control"
                                     value="{{ request('date_from') }}">
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">Au</label>
+                                <label class="form-label">{{ __('Au') }}</label>
                                 <input type="date" name="date_to" class="form-control"
                                     value="{{ request('date_to') }}">
                             </div>
@@ -112,18 +112,17 @@
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Date', 'Utilisateur', 'Tenant', 'Action', 'Sujet', 'IP'],
+                            'columns' => [__('Date'), __('Utilisateur'), __('Tenant'), __('Action'), __('Sujet'), __('IP')],
                         ])
                         <div class="dropdown">
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Trier par : <span class="fw-normal ms-1">Plus
-                                    récent</span>
+                                <i class="isax isax-sort me-1"></i>{{ __('Trier par') }} : <span class="fw-normal ms-1">{{ __('Plus récent') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a href="javascript:void(0);" class="dropdown-item">Plus récent</a></li>
-                                <li><a href="javascript:void(0);" class="dropdown-item">Plus ancien</a></li>
+                                <li><a href="javascript:void(0);" class="dropdown-item">{{ __('Plus récent') }}</a></li>
+                                <li><a href="javascript:void(0);" class="dropdown-item">{{ __('Plus ancien') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -136,13 +135,13 @@
                 <table class="table table-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th>Date</th>
-                            <th>Utilisateur</th>
-                            <th>Tenant</th>
-                            <th>Action</th>
-                            <th>Sujet</th>
-                            <th>IP</th>
-                            <th class="no-sort">Actions</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Utilisateur') }}</th>
+                            <th>{{ __('Tenant') }}</th>
+                            <th>{{ __('Action') }}</th>
+                            <th>{{ __('Sujet') }}</th>
+                            <th>{{ __('IP') }}</th>
+                            <th class="no-sort">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -156,7 +155,7 @@
                                         <h6 class="fs-14 fw-medium mb-0">{{ $log->user->name }}</h6>
                                         <span class="fs-12 text-muted">{{ $log->user->email }}</span>
                                     @else
-                                        <span class="text-muted">Système</span>
+                                        <span class="text-muted">{{ __('Système') }}</span>
                                     @endif
                                 </td>
                                 <td>
@@ -195,7 +194,7 @@
                                     <div class="d-flex align-items-center gap-1">
                                         <a href="{{ route('sa.activity-logs.show', $log) }}"
                                             class="btn btn-outline-white btn-sm d-inline-flex align-items-center">
-                                            <i class="isax isax-eye me-1"></i> Voir
+                                            <i class="isax isax-eye me-1"></i> {{ __('Voir') }}
                                         </a>
                                         <a href="#"
                                             class="btn btn-outline-white btn-sm d-inline-flex align-items-center text-danger"
@@ -208,7 +207,7 @@
                         @empty
                             <tr>
                                 <td colspan="7" class="text-center py-4 text-muted">
-                                    Aucune entrée dans le journal d'activité.
+                                    {{ __("Aucune entrée dans le journal d'activité.") }}
                                 </td>
                             </tr>
                         @endforelse
@@ -234,15 +233,15 @@
                         <div class="mb-3">
                             <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                         </div>
-                        <h6 class="mb-1">Supprimer l'entrée</h6>
-                        <p class="mb-3">Êtes-vous sûr de vouloir supprimer cette entrée du journal ?</p>
+                        <h6 class="mb-1">{{ __("Supprimer l'entrée") }}</h6>
+                        <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer cette entrée du journal ?') }}</p>
                         <form method="POST" action="{{ route('sa.activity-logs.destroy', $log) }}">
                             @csrf
                             @method('DELETE')
                             <div class="d-flex justify-content-center">
                                 <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                                    data-bs-dismiss="modal">Annuler</a>
-                                <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                                    data-bs-dismiss="modal">{{ __('Annuler') }}</a>
+                                <button type="submit" class="btn btn-danger">{{ __('Oui, supprimer') }}</button>
                             </div>
                         </form>
                     </div>
@@ -259,8 +258,8 @@
                     <div class="mb-3">
                         <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                     </div>
-                    <h6 class="mb-1">Purger les anciens logs</h6>
-                    <p class="mb-3">Supprimer toutes les entrées antérieures à la date sélectionnée.</p>
+                    <h6 class="mb-1">{{ __('Purger les anciens logs') }}</h6>
+                    <p class="mb-3">{{ __('Supprimer toutes les entrées antérieures à la date sélectionnée.') }}</p>
                     <form method="POST" action="{{ route('sa.activity-logs.clear') }}">
                         @csrf
                         <div class="mb-3">
@@ -272,8 +271,8 @@
                         @enderror
                         <div class="d-flex justify-content-center">
                             <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                                data-bs-dismiss="modal">Annuler</a>
-                            <button type="submit" class="btn btn-danger">Purger</button>
+                                data-bs-dismiss="modal">{{ __('Annuler') }}</a>
+                            <button type="submit" class="btn btn-danger">{{ __('Purger') }}</button>
                         </div>
                     </form>
                 </div>

@@ -13,7 +13,7 @@
                 <div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-1">
-                            <li class="breadcrumb-item"><a href="{{ route('sa.templates.index') }}">Modèles</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('sa.templates.index') }}">{{ __('Modèles') }}</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{ $template->name }}</li>
                         </ol>
                     </nav>
@@ -23,13 +23,13 @@
                     <form method="POST" action="{{ route('sa.templates.bulk-assign', $template->id) }}">
                         @csrf
                         <button type="submit" class="btn btn-outline-primary d-flex align-items-center"
-                            onclick="return confirm('Assigner ce modèle à toutes les agences actives ?')">
-                            <i class="isax isax-people me-1"></i>Assigner à toutes
+                            onclick="return confirm('{{ __('Assigner ce modèle à toutes les agences actives ?') }}')">
+                            <i class="isax isax-people me-1"></i>{{ __('Assigner à toutes') }}
                         </button>
                     </form>
                     <a href="#" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                         data-bs-target="#assign_template">
-                        <i class="isax isax-add-circle5 me-1"></i>Assigner
+                        <i class="isax isax-add-circle5 me-1"></i>{{ __('Assigner') }}
                     </a>
                 </div>
             </div>
@@ -58,28 +58,28 @@
                                     alt="{{ $template->name }}" class="w-100 rounded">
                             </div>
                             <h6 class="mb-2">{{ $template->name }}</h6>
-                            <p class="text-muted fs-13 mb-2">{{ $template->description ?? 'Aucune description.' }}</p>
+                            <p class="text-muted fs-13 mb-2">{{ $template->description ?? __('Aucune description.') }}</p>
                             <div class="d-flex flex-wrap gap-2 mb-3">
                                 <span class="badge bg-info-transparent text-info">{{ $documentTypeLabels[$template->document_type] ?? $template->document_type }}</span>
                                 @if($template->is_free)
-                                    <span class="badge bg-success-transparent text-success">Gratuit</span>
+                                    <span class="badge bg-success-transparent text-success">{{ __('Gratuit') }}</span>
                                 @else
                                     <span class="badge bg-warning-transparent text-warning">{{ number_format($template->price, 2) }} {{ $template->currency }}</span>
                                 @endif
                                 @if($template->is_active)
-                                    <span class="badge bg-success-transparent text-success">Actif</span>
+                                    <span class="badge bg-success-transparent text-success">{{ __('Actif') }}</span>
                                 @else
-                                    <span class="badge bg-danger-transparent text-danger">Inactif</span>
+                                    <span class="badge bg-danger-transparent text-danger">{{ __('Inactif') }}</span>
                                 @endif
                                 @if($template->is_featured)
-                                    <span class="badge bg-warning-transparent text-warning"><i class="isax isax-star-1 me-1"></i>En vedette</span>
+                                    <span class="badge bg-warning-transparent text-warning"><i class="isax isax-star-1 me-1"></i>{{ __('En vedette') }}</span>
                                 @endif
                             </div>
                             <ul class="list-unstyled fs-13 text-muted">
-                                <li class="mb-1"><strong>Code :</strong> {{ $template->code }}</li>
-                                <li class="mb-1"><strong>Vue :</strong> {{ $template->view_path }}</li>
-                                <li class="mb-1"><strong>Version :</strong> {{ $template->version }}</li>
-                                <li class="mb-1"><strong>Agences assignées :</strong> {{ count($assignedTenantIds) }}</li>
+                                <li class="mb-1"><strong>{{ __('Code :') }}</strong> {{ $template->code }}</li>
+                                <li class="mb-1"><strong>{{ __('Vue :') }}</strong> {{ $template->view_path }}</li>
+                                <li class="mb-1"><strong>{{ __('Version :') }}</strong> {{ $template->version }}</li>
+                                <li class="mb-1"><strong>{{ __('Agences assignées :') }}</strong> {{ count($assignedTenantIds) }}</li>
                             </ul>
                         </div>
                     </div>
@@ -89,17 +89,17 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="card">
                         <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
-                            <h6 class="mb-0">Agences assignées <span class="badge bg-primary ms-1">{{ count($assignedTenantIds) }}</span></h6>
+                            <h6 class="mb-0">{{ __('Agences assignées') }} <span class="badge bg-primary ms-1">{{ count($assignedTenantIds) }}</span></h6>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0">
                                     <thead>
                                         <tr>
-                                            <th>Agence</th>
-                                            <th>Statut</th>
-                                            <th>Devise</th>
-                                            <th class="text-end">Action</th>
+                                            <th>{{ __('Agence') }}</th>
+                                            <th>{{ __('Statut') }}</th>
+                                            <th>{{ __('Devise') }}</th>
+                                            <th class="text-end">{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -119,9 +119,9 @@
                                                 </td>
                                                 <td>
                                                     @if($tenant->status === 'active')
-                                                        <span class="badge bg-success-transparent text-success">Actif</span>
+                                                        <span class="badge bg-success-transparent text-success">{{ __('Actif') }}</span>
                                                     @elseif($tenant->status === 'suspended')
-                                                        <span class="badge bg-warning-transparent text-warning">Suspendu</span>
+                                                        <span class="badge bg-warning-transparent text-warning">{{ __('Suspendu') }}</span>
                                                     @else
                                                         <span class="badge bg-danger-transparent text-danger">{{ ucfirst($tenant->status) }}</span>
                                                     @endif
@@ -129,11 +129,11 @@
                                                 <td>{{ $tenant->default_currency ?? 'MAD' }}</td>
                                                 <td class="text-end">
                                                     <form method="POST" action="{{ route('sa.templates.revoke', $template->id) }}" class="d-inline"
-                                                        onsubmit="return confirm('Retirer ce modèle de l\'agence « {{ $tenant->name }} » ?')">
+                                                        onsubmit="return confirm('{{ __('Retirer ce modèle de l\'agence') }} « {{ $tenant->name }} » ?')">
                                                         @csrf
                                                         <input type="hidden" name="tenant_id" value="{{ $tenant->id }}">
                                                         <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                            <i class="isax isax-close-circle me-1"></i>Retirer
+                                                            <i class="isax isax-close-circle me-1"></i>{{ __('Retirer') }}
                                                         </button>
                                                     </form>
                                                 </td>
@@ -146,7 +146,7 @@
                                         <tr>
                                             <td colspan="4" class="text-center py-4 text-muted">
                                                 <i class="isax isax-buildings-2 fs-24 d-block mb-2"></i>
-                                                Aucune agence assignée à ce modèle.
+                                                {{ __('Aucune agence assignée à ce modèle.') }}
                                             </td>
                                         </tr>
                                         @endif
@@ -163,16 +163,16 @@
                     @if($unassignedTenants->isNotEmpty())
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="mb-0">Agences non assignées <span class="badge bg-secondary ms-1">{{ $unassignedTenants->count() }}</span></h6>
+                            <h6 class="mb-0">{{ __('Agences non assignées') }} <span class="badge bg-secondary ms-1">{{ $unassignedTenants->count() }}</span></h6>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0">
                                     <thead>
                                         <tr>
-                                            <th>Agence</th>
-                                            <th>Statut</th>
-                                            <th class="text-end">Action</th>
+                                            <th>{{ __('Agence') }}</th>
+                                            <th>{{ __('Statut') }}</th>
+                                            <th class="text-end">{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -191,7 +191,7 @@
                                             </td>
                                             <td>
                                                 @if($tenant->status === 'active')
-                                                    <span class="badge bg-success-transparent text-success">Actif</span>
+                                                    <span class="badge bg-success-transparent text-success">{{ __('Actif') }}</span>
                                                 @else
                                                     <span class="badge bg-warning-transparent text-warning">{{ ucfirst($tenant->status) }}</span>
                                                 @endif
@@ -201,7 +201,7 @@
                                                     @csrf
                                                     <input type="hidden" name="tenant_ids[]" value="{{ $tenant->id }}">
                                                     <button type="submit" class="btn btn-sm btn-outline-primary">
-                                                        <i class="isax isax-add-circle me-1"></i>Assigner
+                                                        <i class="isax isax-add-circle me-1"></i>{{ __('Assigner') }}
                                                     </button>
                                                 </form>
                                             </td>
@@ -227,24 +227,24 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="assignTemplateLabel">Assigner « {{ $template->name }} »</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                    <h5 class="modal-title" id="assignTemplateLabel">{{ __('Assigner') }} « {{ $template->name }} »</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fermer') }}"></button>
                 </div>
                 <form method="POST" action="{{ route('sa.templates.assign', $template->id) }}">
                     @csrf
                     <div class="modal-body">
-                        <p class="text-muted fs-13 mb-3">Sélectionnez les agences auxquelles assigner ce modèle :</p>
+                        <p class="text-muted fs-13 mb-3">{{ __('Sélectionnez les agences auxquelles assigner ce modèle :') }}</p>
 
                         @if($unassignedTenants->isEmpty())
                             <div class="text-center py-3 text-muted">
                                 <i class="isax isax-tick-circle fs-24 d-block mb-2 text-success"></i>
-                                Toutes les agences sont déjà assignées.
+                                {{ __('Toutes les agences sont déjà assignées.') }}
                             </div>
                         @else
                             <div class="mb-2">
                                 <label class="form-check">
                                     <input type="checkbox" class="form-check-input" id="select_all_tenants">
-                                    <span class="form-check-label fw-medium">Tout sélectionner</span>
+                                    <span class="form-check-label fw-medium">{{ __('Tout sélectionner') }}</span>
                                 </label>
                             </div>
                             <div style="max-height: 300px; overflow-y: auto;" class="border rounded p-2">
@@ -262,10 +262,10 @@
                         @endif
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-outline-white" data-bs-dismiss="modal">{{ __('Annuler') }}</button>
                         @if($unassignedTenants->isNotEmpty())
                             <button type="submit" class="btn btn-primary">
-                                <i class="isax isax-tick-circle me-1"></i>Assigner
+                                <i class="isax isax-tick-circle me-1"></i>{{ __('Assigner') }}
                             </button>
                         @endif
                     </div>

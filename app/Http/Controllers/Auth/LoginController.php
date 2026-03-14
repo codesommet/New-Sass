@@ -14,7 +14,12 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        $locale = app()->getLocale();
+        $view = $locale !== 'fr' && view()->exists("{$locale}.auth.login")
+            ? "{$locale}.auth.login"
+            : 'auth.login';
+
+        return view($view);
     }
 
     public function login(LoginRequest $request)
@@ -109,7 +114,7 @@ class LoginController extends Controller
             ]);
 
             $request->session()->regenerate();
-            session()->flash('success', "Bienvenue {$authenticatedUser->name}! Vous êtes connecté avec succès.");
+            session()->flash('success', __('Bienvenue :name! Vous êtes connecté avec succès.', ['name' => $authenticatedUser->name]));
 
             return redirect()->route('sa.dashboard');
         }
@@ -206,7 +211,7 @@ class LoginController extends Controller
         ]);
 
         $request->session()->regenerate();
-        session()->flash('success', "Bienvenue {$authenticatedUser->name}! Vous êtes connecté avec succès.");
+        session()->flash('success', __('Bienvenue :name! Vous êtes connecté avec succès.', ['name' => $authenticatedUser->name]));
 
         return redirect()->route('bo.dashboard');
     }

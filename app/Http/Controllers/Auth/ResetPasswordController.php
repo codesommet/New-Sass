@@ -10,7 +10,12 @@ class ResetPasswordController extends Controller
 {
     public function showResetForm($token)
     {
-        return view('auth.reset-password', ['token' => $token]);
+        $locale = app()->getLocale();
+        $view = $locale !== 'fr' && view()->exists("{$locale}.auth.reset-password")
+            ? "{$locale}.auth.reset-password"
+            : 'auth.reset-password';
+
+        return view($view, ['token' => $token]);
     }
 
     public function resetPassword(ResetPasswordRequest $request)

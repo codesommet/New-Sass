@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \App\Http\Middleware\RequirePermission::class,
             'plan.limit' => \App\Http\Middleware\CheckPlanLimit::class,
             'subscriptionActive' => \App\Http\Middleware\EnsureActiveSubscription::class,
+            'setSuperAdminLocale' => \App\Http\Middleware\SetSuperAdminLocale::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

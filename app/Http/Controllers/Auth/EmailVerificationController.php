@@ -15,7 +15,12 @@ class EmailVerificationController extends Controller
             return redirect(route('dashboard'));
         }
 
-        return view('auth.verify-email');
+        $locale = app()->getLocale();
+        $view = $locale !== 'fr' && view()->exists("{$locale}.auth.verify-email")
+            ? "{$locale}.auth.verify-email"
+            : 'auth.verify-email';
+
+        return view($view);
     }
 
     public function verify(EmailVerificationRequest $request)

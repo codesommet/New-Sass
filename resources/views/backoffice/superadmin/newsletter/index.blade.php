@@ -11,15 +11,15 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Abonnés newsletter</h6>
+                    <h6>{{ __('Abonnés newsletter') }}</h6>
                     <div class="d-flex gap-2 mt-1">
-                        <span class="badge badge-soft-primary">{{ $totalCount }} au total</span>
-                        <span class="badge badge-soft-success">{{ $activeCount }} actifs</span>
+                        <span class="badge badge-soft-primary">{{ $totalCount }} {{ __('au total') }}</span>
+                        <span class="badge badge-soft-success">{{ $activeCount }} {{ __('actifs') }}</span>
                     </div>
                 </div>
                 <div>
                     <a href="{{ route('sa.newsletter.export') }}" class="btn btn-outline-white d-flex align-items-center">
-                        <i class="isax isax-document-download me-1"></i> Exporter CSV
+                        <i class="isax isax-document-download me-1"></i> {{ __('Exporter CSV') }}
                     </a>
                 </div>
             </div>
@@ -38,17 +38,17 @@
                     <form method="GET" action="{{ route('sa.newsletter.index') }}">
                         <div class="row g-3 align-items-end">
                             <div class="col-md-5">
-                                <label class="form-label">Rechercher</label>
+                                <label class="form-label">{{ __('Rechercher') }}</label>
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Adresse email..."
+                                    placeholder="{{ __('Adresse email...') }}"
                                     value="{{ request('search') }}">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label">Statut</label>
+                                <label class="form-label">{{ __('Statut') }}</label>
                                 <select name="status" class="form-select">
-                                    <option value="">Tous</option>
-                                    <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Actif</option>
-                                    <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Désabonné</option>
+                                    <option value="">{{ __('Tous') }}</option>
+                                    <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>{{ __('Actif') }}</option>
+                                    <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>{{ __('Désabonné') }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2 d-flex gap-2">
@@ -70,11 +70,11 @@
                 <table class="table table-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th>Email</th>
-                            <th>Statut</th>
-                            <th>Date d'inscription</th>
-                            <th>IP</th>
-                            <th class="no-sort">Actions</th>
+                            <th>{{ __('Email') }}</th>
+                            <th>{{ __('Statut') }}</th>
+                            <th>{{ __("Date d'inscription") }}</th>
+                            <th>{{ __('IP') }}</th>
+                            <th class="no-sort">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,9 +85,9 @@
                                 </td>
                                 <td>
                                     @if($sub->is_active)
-                                        <span class="badge badge-soft-success">Actif</span>
+                                        <span class="badge badge-soft-success">{{ __('Actif') }}</span>
                                     @else
-                                        <span class="badge badge-soft-danger">Désabonné</span>
+                                        <span class="badge badge-soft-danger">{{ __('Désabonné') }}</span>
                                     @endif
                                 </td>
                                 <td>
@@ -102,12 +102,12 @@
                                             @csrf
                                             @method('PATCH')
                                             @if($sub->is_active)
-                                                <button type="submit" class="btn btn-outline-white btn-sm d-inline-flex align-items-center text-warning" title="Désactiver">
-                                                    <i class="isax isax-slash me-1"></i> Désactiver
+                                                <button type="submit" class="btn btn-outline-white btn-sm d-inline-flex align-items-center text-warning" title="{{ __('Désactiver') }}">
+                                                    <i class="isax isax-slash me-1"></i> {{ __('Désactiver') }}
                                                 </button>
                                             @else
-                                                <button type="submit" class="btn btn-outline-white btn-sm d-inline-flex align-items-center text-success" title="Réactiver">
-                                                    <i class="isax isax-tick-circle me-1"></i> Réactiver
+                                                <button type="submit" class="btn btn-outline-white btn-sm d-inline-flex align-items-center text-success" title="{{ __('Réactiver') }}">
+                                                    <i class="isax isax-tick-circle me-1"></i> {{ __('Réactiver') }}
                                                 </button>
                                             @endif
                                         </form>
@@ -122,7 +122,7 @@
                         @empty
                             <tr>
                                 <td colspan="5" class="text-center py-4 text-muted">
-                                    Aucun abonné à la newsletter.
+                                    {{ __('Aucun abonné à la newsletter.') }}
                                 </td>
                             </tr>
                         @endforelse
@@ -150,15 +150,15 @@
                         <div class="mb-3">
                             <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                         </div>
-                        <h6 class="mb-1">Supprimer l'abonné</h6>
-                        <p class="mb-3">Supprimer {{ $sub->email }} de la newsletter ?</p>
+                        <h6 class="mb-1">{{ __("Supprimer l'abonné") }}</h6>
+                        <p class="mb-3">{{ __('Supprimer') }} {{ $sub->email }} {{ __('de la newsletter ?') }}</p>
                         <form method="POST" action="{{ route('sa.newsletter.destroy', $sub) }}">
                             @csrf
                             @method('DELETE')
                             <div class="d-flex justify-content-center">
                                 <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                                    data-bs-dismiss="modal">Annuler</a>
-                                <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                                    data-bs-dismiss="modal">{{ __('Annuler') }}</a>
+                                <button type="submit" class="btn btn-danger">{{ __('Oui, supprimer') }}</button>
                             </div>
                         </form>
                     </div>

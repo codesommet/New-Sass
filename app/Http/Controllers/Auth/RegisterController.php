@@ -19,7 +19,12 @@ class RegisterController extends Controller
             abort(404, 'Registration is not available.');
         }
 
-        return view('auth.register', ['tenant' => $tenant]);
+        $locale = app()->getLocale();
+        $view = $locale !== 'fr' && view()->exists("{$locale}.auth.register")
+            ? "{$locale}.auth.register"
+            : 'auth.register';
+
+        return view($view, ['tenant' => $tenant]);
     }
 
     public function register(RegisterRequest $request)

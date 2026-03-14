@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\AccountRequestFormRequest;
 use App\Http\Requests\Web\ContactRequest;
 use App\Models\Billing\Plan;
+use App\Models\System\AccountRequest;
 use App\Models\System\ContactMessage;
 use App\Models\System\NewsletterSubscriber;
 use Illuminate\Http\JsonResponse;
@@ -13,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use App\Mail\NewsletterWelcomeMail;
 
 class PageController extends Controller
 {
@@ -87,6 +90,12 @@ class PageController extends Controller
                 'ip_address'      => $request->ip(),
             ]);
 
+            try {
+                Mail::to($request->email)->send(new NewsletterWelcomeMail($request->email));
+            } catch (\Exception $e) {
+                Log::warning('Newsletter welcome email failed', ['error' => $e->getMessage()]);
+            }
+
             return response()->json([
                 'message' => 'Votre inscription à la newsletter a été réactivée avec succès !',
             ]);
@@ -96,6 +105,12 @@ class PageController extends Controller
             'email'      => $request->email,
             'ip_address' => $request->ip(),
         ]);
+
+        try {
+            Mail::to($request->email)->send(new NewsletterWelcomeMail($request->email));
+        } catch (\Exception $e) {
+            Log::warning('Newsletter welcome email failed', ['error' => $e->getMessage()]);
+        }
 
         return response()->json([
             'message' => 'Merci ! Vous êtes maintenant inscrit à notre newsletter.',
@@ -130,5 +145,24 @@ class PageController extends Controller
     public function faq(): View
     {
         return view('frontoffice.pages.faq');
+    }
+
+    public function requestAccount(): View
+    {
+        return view('frontoffice.pages.request-account');
+    }
+
+    public function requestAccountSend(AccountRequestFormRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+
+        AccountRequest::create([
+            ...$data,
+            'ip_address' => $request->ip(),
+        ]);
+
+        return redirect()
+            ->route('request-account')
+            ->with('success', 'Votre demande de compte a été envoyée avec succès. Nous vous contacterons dans les plus brefs délais.');
     }
 }

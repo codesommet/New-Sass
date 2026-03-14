@@ -1,0 +1,112 @@
+<?php $page = 'reset-password'; ?>
+@extends('backoffice.layout.mainlayout')
+@section('content')
+    <!-- Start Content -->
+    <div class="container-fuild" dir="rtl">
+
+        <div class="w-100 overflow-hidden position-relative flex-wrap d-block vh-100">
+
+            <!-- start row -->
+            <div class="row justify-content-center align-items-center vh-100 overflow-auto flex-wrap ">
+                <div class="col-lg-4 mx-auto">
+                    <form method="POST" action="{{ route('password.update') }}"
+                        class="d-flex justify-content-center align-items-center">
+                        @csrf
+                        <input type="hidden" name="token" value="{{ $token }}">
+                        <div class="d-flex flex-column justify-content-lg-center p-4 p-lg-0 pb-0 flex-fill">
+                            <div class="mx-auto mb-5 text-center">
+                                <img src="{{ URL::asset('assets/images/logo/logo-wide-cropped.svg') }}" class="img-fluid"
+                                    alt="Logo">
+                            </div>
+                            <div class="card border-0 p-lg-3 shadow-lg rounded-2">
+                                <div class="card-body">
+                                    <div class="text-center mb-3">
+                                        <h5 class="mb-2">إعادة تعيين كلمة المرور</h5>
+                                        <p class="mb-0">أدخل كلمة مرور جديدة</p>
+                                    </div>
+
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <div class="d-flex align-items-center">
+                                                <i class="isax isax-close-circle ms-2"></i>
+                                                <div>
+                                                    @foreach ($errors->all() as $error)
+                                                        <div>{{ $error }}</div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="إغلاق"></button>
+                                        </div>
+                                    @endif
+
+                                    <div class="mb-3">
+                                        <label class="form-label">البريد الإلكتروني</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text border-end-0">
+                                                <i class="isax isax-sms-notification"></i>
+                                            </span>
+                                            <input type="email" name="email" value="{{ old('email') }}"
+                                                class="form-control border-start-0 ps-0 @error('email') is-invalid @enderror"
+                                                placeholder="أدخل البريد الإلكتروني" required>
+                                            @error('email')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">كلمة المرور الجديدة</label>
+                                        <div class="pass-group input-group">
+                                            <span class="input-group-text border-end-0">
+                                                <i class="isax isax-lock"></i>
+                                            </span>
+                                            <span class="isax toggle-password isax-eye-slash"></span>
+                                            <input type="password" name="password"
+                                                class="pass-input form-control border-start-0 ps-0 @error('password') is-invalid @enderror"
+                                                placeholder="****************" required>
+                                            @error('password')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">تأكيد كلمة المرور</label>
+                                        <div class="pass-group input-group">
+                                            <span class="input-group-text border-end-0">
+                                                <i class="isax isax-lock"></i>
+                                            </span>
+                                            <span class="isax toggle-passwords isax-eye-slash"></span>
+                                            <input type="password" name="password_confirmation"
+                                                class="pass-input form-control border-start-0 ps-0 @error('password_confirmation') is-invalid @enderror"
+                                                placeholder="****************" required>
+                                            @error('password_confirmation')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <button type="submit"
+                                            class="btn bg-primary-gradient text-white w-100">إعادة تعيين
+                                            كلمة المرور</button>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <h6 class="fw-normal fs-14 text-dark mb-0">العودة إلى
+                                            <a href="{{ route('login') }}" class="hover-a"> تسجيل الدخول</a>
+                                        </h6>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div>
+                    </form>
+                </div><!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div>
+    </div>
+    <!-- End Content -->
+@endsection

@@ -19,6 +19,10 @@ Route::get('/features', [PageController::class, 'features'])->name('features');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'contactSend'])->name('contact.send');
 
+// Account Request
+Route::get('/demande-compte', [PageController::class, 'requestAccount'])->name('request-account');
+Route::post('/demande-compte', [PageController::class, 'requestAccountSend'])->name('request-account.send');
+
 // Newsletter
 Route::post('/newsletter/subscribe', [PageController::class, 'newsletterSubscribe'])->name('newsletter.subscribe');
 

@@ -92,13 +92,29 @@ class DashboardController extends Controller
                 ->where('created_at', '>=', $now->copy()->startOfMonth())
                 ->sum('amount');
 
+            // ─── Tenant growth by month (last 12 months) ───
+            $tenantGrowth = Tenant::where('created_at', '>=', $now->copy()->subMonths(11)->startOfMonth())
+                ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as month, COUNT(*) as total")
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+            // ─── Subscriptions by plan (for plan distribution chart) ───
+            $subscriptionsByPlan = Subscription::withoutGlobalScopes()
+                ->join('plans', 'subscriptions.plan_id', '=', 'plans.id')
+                ->selectRaw('plans.name as plan_name, COUNT(*) as total')
+                ->groupBy('plans.name')
+                ->orderByDesc('total')
+                ->get();
+
             return compact(
                 'totalTenants', 'activeTenants', 'suspendedTenants', 'activePlans',
                 'mostOrderedPlan', 'topTenant',
                 'latestTenants', 'earningsTrend',
                 'expiredSubscriptions', 'recentInvoices',
                 'subscriptionsByStatus',
-                'totalRevenue', 'revenueMtd'
+                'totalRevenue', 'revenueMtd',
+                'tenantGrowth', 'subscriptionsByPlan'
             );
         });
 

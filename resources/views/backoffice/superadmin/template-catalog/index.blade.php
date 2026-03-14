@@ -7,16 +7,16 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Catalogue des modèles</h6>
+                    <h6>{{ __('Catalogue des modèles') }}</h6>
                     <div class="d-flex gap-2 mt-1">
-                        <span class="badge badge-soft-primary">{{ $totalTemplates }} au total</span>
-                        <span class="badge badge-soft-success">{{ $activeTemplates }} actifs</span>
-                        <span class="badge badge-soft-info">{{ $freeTemplates }} gratuits</span>
+                        <span class="badge badge-soft-primary">{{ $totalTemplates }} {{ __('au total') }}</span>
+                        <span class="badge badge-soft-success">{{ $activeTemplates }} {{ __('actifs') }}</span>
+                        <span class="badge badge-soft-info">{{ $freeTemplates }} {{ __('gratuits') }}</span>
                     </div>
                 </div>
                 <div>
                     <a href="{{ route('sa.template-catalog.create') }}" class="btn btn-primary d-flex align-items-center">
-                        <i class="isax isax-add me-1"></i> Nouveau modèle
+                        <i class="isax isax-add me-1"></i> {{ __('Nouveau modèle') }}
                     </a>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                             <div class="table-search d-flex align-items-center mb-0">
                                 <div class="search-input">
                                     <input type="text" name="search" value="{{ request('search') }}"
-                                        placeholder="Rechercher..." class="form-control form-control-sm">
+                                        placeholder="{{ __('Rechercher...') }}" class="form-control form-control-sm">
                                     <a href="javascript:void(0);" class="btn-searchset">
                                         <i class="isax isax-search-normal fs-12"></i>
                                     </a>
@@ -51,7 +51,7 @@
                             </div>
                             <select name="document_type" class="form-select form-select-sm" style="width: auto;"
                                 onchange="this.form.submit()">
-                                <option value="">Tous les types</option>
+                                <option value="">{{ __('Tous les types') }}</option>
                                 @foreach ($documentTypeLabels as $key => $label)
                                     <option value="{{ $key }}"
                                         {{ request('document_type') === $key ? 'selected' : '' }}>{{ $label }}
@@ -61,13 +61,13 @@
                             @if (request('search') || request('document_type'))
                                 <a href="{{ route('sa.template-catalog.index') }}"
                                     class="btn btn-sm btn-outline-secondary">
-                                    <i class="isax isax-close-circle me-1"></i>Réinitialiser
+                                    <i class="isax isax-close-circle me-1"></i>{{ __('Réinitialiser') }}
                                 </a>
                             @endif
                         </div>
                         <div class="d-flex align-items-center flex-wrap gap-2">
                             @include('backoffice.components.column-toggle', [
-                                'columns' => ['Nom', 'Code', 'Type de document', 'Vue', 'Prix', 'Statut', 'Ordre'],
+                                'columns' => [__('Nom'), __('Code'), __('Type de document'), __('Vue'), __('Prix'), __('Statut'), __('Ordre')],
                             ])
                         </div>
                     </div>
@@ -79,14 +79,14 @@
                 <table class="table table-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th>Nom</th>
-                            <th>Code</th>
-                            <th>Type de document</th>
-                            <th>Vue</th>
-                            <th>Prix</th>
-                            <th>Statut</th>
-                            <th>Ordre</th>
-                            <th class="no-sort">Actions</th>
+                            <th>{{ __('Nom') }}</th>
+                            <th>{{ __('Code') }}</th>
+                            <th>{{ __('Type de document') }}</th>
+                            <th>{{ __('Vue') }}</th>
+                            <th>{{ __('Prix') }}</th>
+                            <th>{{ __('Statut') }}</th>
+                            <th>{{ __('Ordre') }}</th>
+                            <th class="no-sort">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,7 +106,7 @@
                                 <td><code class="fs-11 text-muted">{{ Str::limit($template->view_path, 35) }}</code></td>
                                 <td>
                                     @if ($template->is_free)
-                                        <span class="badge badge-soft-success">Gratuit</span>
+                                        <span class="badge badge-soft-success">{{ __('Gratuit') }}</span>
                                     @else
                                         <span class="fw-medium">{{ number_format($template->price, 2) }}
                                             {{ $template->currency }}</span>
@@ -114,12 +114,12 @@
                                 </td>
                                 <td>
                                     @if ($template->is_active)
-                                        <span class="badge badge-soft-success">Actif</span>
+                                        <span class="badge badge-soft-success">{{ __('Actif') }}</span>
                                     @else
-                                        <span class="badge badge-soft-danger">Inactif</span>
+                                        <span class="badge badge-soft-danger">{{ __('Inactif') }}</span>
                                     @endif
                                     @if ($template->is_featured)
-                                        <span class="badge badge-soft-warning ms-1">Vedette</span>
+                                        <span class="badge badge-soft-warning ms-1">{{ __('Vedette') }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $template->sort_order }}</td>
@@ -127,7 +127,7 @@
                                     <div class="d-flex align-items-center gap-1">
                                         <a href="{{ route('sa.template-catalog.edit', $template) }}"
                                             class="btn btn-sm btn-outline-white d-inline-flex align-items-center">
-                                            <i class="isax isax-edit-2 me-1"></i> Modifier
+                                            <i class="isax isax-edit-2 me-1"></i> {{ __('Modifier') }}
                                         </a>
                                         <a href="#"
                                             class="btn btn-sm btn-outline-white d-inline-flex align-items-center text-danger"
@@ -140,7 +140,7 @@
                         @empty
                             <tr>
                                 <td colspan="8" class="text-center py-4 text-muted">
-                                    Aucun modèle trouvé.
+                                    {{ __('Aucun modèle trouvé.') }}
                                 </td>
                             </tr>
                         @endforelse
@@ -166,8 +166,8 @@
                         <div class="mb-3">
                             <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                         </div>
-                        <h6 class="mb-1">Supprimer le modèle</h6>
-                        <p class="mb-3">Êtes-vous sûr de vouloir supprimer le modèle «
+                        <h6 class="mb-1">{{ __('Supprimer le modèle') }}</h6>
+                        <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer le modèle') }} «
                             <strong>{{ $tpl->name }}</strong> » ?
                         </p>
                         <form method="POST" action="{{ route('sa.template-catalog.destroy', $tpl) }}">
@@ -175,8 +175,8 @@
                             @method('DELETE')
                             <div class="d-flex justify-content-center">
                                 <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                                    data-bs-dismiss="modal">Annuler</a>
-                                <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                                    data-bs-dismiss="modal">{{ __('Annuler') }}</a>
+                                <button type="submit" class="btn btn-danger">{{ __('Oui, supprimer') }}</button>
                             </div>
                         </form>
                     </div>

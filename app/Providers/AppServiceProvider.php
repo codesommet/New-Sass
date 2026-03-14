@@ -36,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
         $this->registerEvents();
         $this->registerObservers();
 
+        // Load additional JSON translation files from subdirectories
+        $this->app['translator']->addJsonPath(lang_path('documentation'));
+
         // Resolve factories by model base name (flat factory directory)
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             return 'Database\\Factories\\' . class_basename($modelName) . 'Factory';

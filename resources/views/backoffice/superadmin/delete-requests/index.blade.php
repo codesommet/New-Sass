@@ -11,9 +11,9 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Demandes de suppression de compte</h6>
+                    <h6>{{ __('Demandes de suppression de compte') }}</h6>
                     @if ($pendingCount > 0)
-                        <span class="badge badge-soft-warning">{{ $pendingCount }} en attente</span>
+                        <span class="badge badge-soft-warning">{{ $pendingCount }} {{ __('en attente') }}</span>
                     @endif
                 </div>
             </div>
@@ -39,18 +39,17 @@
                     </div>
                     <div class="d-flex align-items-center flex-wrap gap-2">
                         @include('backoffice.components.column-toggle', [
-                            'columns' => ['Utilisateur', 'Agence', 'Raison', 'Date de demande', 'Statut'],
+                            'columns' => [__('Utilisateur'), __('Agence'), __('Raison'), __('Date de demande'), __('Statut')],
                         ])
                         <div class="dropdown">
                             <a href="javascript:void(0);"
                                 class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                                 data-bs-toggle="dropdown">
-                                <i class="isax isax-sort me-1"></i>Trier par : <span class="fw-normal ms-1">Plus
-                                    récent</span>
+                                <i class="isax isax-sort me-1"></i>{{ __('Trier par :') }} <span class="fw-normal ms-1">{{ __('Plus récent') }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a href="javascript:void(0);" class="dropdown-item">Plus récent</a></li>
-                                <li><a href="javascript:void(0);" class="dropdown-item">Plus ancien</a></li>
+                                <li><a href="javascript:void(0);" class="dropdown-item">{{ __('Plus récent') }}</a></li>
+                                <li><a href="javascript:void(0);" class="dropdown-item">{{ __('Plus ancien') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -63,12 +62,12 @@
                 <table class="table table-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th>Utilisateur</th>
-                            <th>Agence</th>
-                            <th>Raison</th>
-                            <th>Date de demande</th>
-                            <th>Statut</th>
-                            <th class="no-sort">Actions</th>
+                            <th>{{ __('Utilisateur') }}</th>
+                            <th>{{ __('Agence') }}</th>
+                            <th>{{ __('Raison') }}</th>
+                            <th>{{ __('Date de demande') }}</th>
+                            <th>{{ __('Statut') }}</th>
+                            <th class="no-sort">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,11 +91,11 @@
                                 <td>
                                     @php
                                         $reasonLabels = [
-                                            'no_longer_using' => 'N\'utilise plus le service',
-                                            'privacy' => 'Confidentialité',
-                                            'notifications' => 'Trop de notifications',
-                                            'poor_experience' => 'Mauvaise expérience',
-                                            'other' => 'Autre',
+                                            'no_longer_using' => __('N\'utilise plus le service'),
+                                            'privacy' => __('Confidentialité'),
+                                            'notifications' => __('Trop de notifications'),
+                                            'poor_experience' => __('Mauvaise expérience'),
+                                            'other' => __('Autre'),
                                         ];
                                     @endphp
                                     <span
@@ -110,17 +109,17 @@
                                 <td>
                                     @switch($request->status)
                                         @case('pending')
-                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">En attente<i
+                                            <span class="badge badge-soft-warning d-inline-flex align-items-center">{{ __('En attente') }}<i
                                                     class="isax isax-clock ms-1"></i></span>
                                         @break
 
                                         @case('confirmed')
-                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">Confirmé<i
+                                            <span class="badge badge-soft-danger d-inline-flex align-items-center">{{ __('Confirmé') }}<i
                                                     class="isax isax-tick-circle ms-1"></i></span>
                                         @break
 
                                         @case('cancelled')
-                                            <span class="badge badge-soft-success d-inline-flex align-items-center">Annulé<i
+                                            <span class="badge badge-soft-success d-inline-flex align-items-center">{{ __('Annulé') }}<i
                                                     class="isax isax-close-circle ms-1"></i></span>
                                         @break
                                     @endswitch
@@ -132,21 +131,21 @@
                                             @csrf
                                             <button type="submit"
                                                 class="btn btn-outline-white d-inline-flex align-items-center me-1"
-                                                onclick="return confirm('Annuler cette demande de suppression ?')">
-                                                <i class="isax isax-close-circle me-1"></i> Annuler
+                                                onclick="return confirm('{{ __('Annuler cette demande de suppression ?') }}')">
+                                                <i class="isax isax-close-circle me-1"></i> {{ __('Annuler') }}
                                             </button>
                                         </form>
                                         <a href="#" class="btn btn-outline-white d-inline-flex align-items-center"
                                             data-bs-toggle="modal" data-bs-target="#confirm_delete_{{ $request->id }}">
-                                            <i class="isax isax-tick-circle me-1"></i> Confirmer
+                                            <i class="isax isax-tick-circle me-1"></i> {{ __('Confirmer') }}
                                         </a>
                                     @else
                                         <span class="text-muted fs-13">
                                             @if ($request->handler)
-                                                Traité par {{ $request->handler->name }}
+                                                {{ __('Traité par') }} {{ $request->handler->name }}
                                             @endif
                                             @if ($request->handled_at)
-                                                le {{ $request->handled_at->translatedFormat('d M Y') }}
+                                                {{ __('le') }} {{ $request->handled_at->translatedFormat('d M Y') }}
                                             @endif
                                         </span>
                                     @endif
@@ -155,7 +154,7 @@
                             @empty
                                 <tr>
                                     <td colspan="6" class="text-center py-4 text-muted">
-                                        Aucune demande de suppression trouvée.
+                                        {{ __('Aucune demande de suppression trouvée.') }}
                                     </td>
                                 </tr>
                             @endforelse
@@ -181,17 +180,17 @@
                             <div class="mb-3">
                                 <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                             </div>
-                            <h6 class="mb-1">Confirmer la suppression</h6>
-                            <p class="mb-2">Êtes-vous sûr de vouloir confirmer la suppression du compte de
+                            <h6 class="mb-1">{{ __('Confirmer la suppression') }}</h6>
+                            <p class="mb-2">{{ __('Êtes-vous sûr de vouloir confirmer la suppression du compte de') }}
                                 <strong>{{ $req->tenant->name ?? '-' }}</strong> ?
                             </p>
-                            <p class="fs-12 text-danger mb-3">Cette action désactivera le tenant.</p>
+                            <p class="fs-12 text-danger mb-3">{{ __('Cette action désactivera le tenant.') }}</p>
                             <form method="POST" action="{{ route('sa.delete-requests.confirm', $req) }}">
                                 @csrf
                                 <div class="d-flex justify-content-center">
                                     <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                                        data-bs-dismiss="modal">Annuler</a>
-                                    <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                                        data-bs-dismiss="modal">{{ __('Annuler') }}</a>
+                                    <button type="submit" class="btn btn-danger">{{ __('Oui, supprimer') }}</button>
                                 </div>
                             </form>
                         </div>

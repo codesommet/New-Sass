@@ -11,17 +11,17 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Détail de l'activité</h6>
+                    <h6>{{ __("Détail de l'activité") }}</h6>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="{{ route('sa.activity-logs.index') }}">Journal d'activité</a></li>
-                            <li class="breadcrumb-item active">Détail</li>
+                            <li class="breadcrumb-item"><a href="{{ route('sa.activity-logs.index') }}">{{ __("Journal d'activité") }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('Détail') }}</li>
                         </ol>
                     </nav>
                 </div>
                 <div>
                     <a href="{{ route('sa.activity-logs.index') }}" class="btn btn-outline-white d-flex align-items-center">
-                        <i class="isax isax-arrow-left me-1"></i> Retour
+                        <i class="isax isax-arrow-left me-1"></i> {{ __('Retour') }}
                     </a>
                 </div>
             </div>
@@ -32,16 +32,16 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="card-title mb-0">Informations de l'activité</h6>
+                            <h6 class="card-title mb-0">{{ __("Informations de l'activité") }}</h6>
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <p class="text-muted mb-1">Date & Heure</p>
+                                    <p class="text-muted mb-1">{{ __('Date & Heure') }}</p>
                                     <p class="fw-medium mb-0">{{ $activityLog->created_at?->translatedFormat('d M Y à H:i:s') }}</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p class="text-muted mb-1">Action</p>
+                                    <p class="text-muted mb-1">{{ __('Action') }}</p>
                                     @php
                                         $actionBadge = match(true) {
                                             str_contains($activityLog->action ?? '', 'create') || str_contains($activityLog->action ?? '', 'created') => 'badge-soft-success',
@@ -54,23 +54,23 @@
                                     <span class="badge {{ $actionBadge }}">{{ $activityLog->action }}</span>
                                 </div>
                                 <div class="col-md-4">
-                                    <p class="text-muted mb-1">Adresse IP</p>
+                                    <p class="text-muted mb-1">{{ __('Adresse IP') }}</p>
                                     <p class="fw-medium mb-0">{{ $activityLog->ip ?? '-' }}</p>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <p class="text-muted mb-1">Utilisateur</p>
+                                    <p class="text-muted mb-1">{{ __('Utilisateur') }}</p>
                                     @if ($activityLog->user)
                                         <p class="fw-medium mb-0">{{ $activityLog->user->name }}</p>
                                         <span class="fs-12 text-muted">{{ $activityLog->user->email }}</span>
                                     @else
-                                        <p class="mb-0 text-muted">Système</p>
+                                        <p class="mb-0 text-muted">{{ __('Système') }}</p>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <p class="text-muted mb-1">Tenant</p>
+                                    <p class="text-muted mb-1">{{ __('Tenant') }}</p>
                                     @if ($activityLog->tenant)
                                         <span class="badge badge-soft-primary">{{ $activityLog->tenant->name }}</span>
                                     @else
@@ -78,7 +78,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <p class="text-muted mb-1">Sujet</p>
+                                    <p class="text-muted mb-1">{{ __('Sujet') }}</p>
                                     @if ($activityLog->subject_type)
                                         <p class="fw-medium mb-0">{{ class_basename($activityLog->subject_type) }}</p>
                                         <span class="fs-12 text-muted">{{ $activityLog->subject_id }}</span>
@@ -91,7 +91,7 @@
                             @if ($activityLog->user_agent)
                                 <div class="row">
                                     <div class="col-12">
-                                        <p class="text-muted mb-1">User Agent</p>
+                                        <p class="text-muted mb-1">{{ __('User Agent') }}</p>
                                         <p class="fs-13 text-muted mb-0">{{ $activityLog->user_agent }}</p>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="card-title mb-0">Propriétés</h6>
+                            <h6 class="card-title mb-0">{{ __('Propriétés') }}</h6>
                         </div>
                         <div class="card-body">
                             @if ($activityLog->properties && count($activityLog->properties) > 0)
@@ -127,7 +127,7 @@
                                     </table>
                                 </div>
                             @else
-                                <p class="text-muted text-center mb-0">Aucune propriété enregistrée.</p>
+                                <p class="text-muted text-center mb-0">{{ __('Aucune propriété enregistrée.') }}</p>
                             @endif
                         </div>
                     </div>

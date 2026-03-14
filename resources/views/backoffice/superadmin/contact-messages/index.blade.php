@@ -11,10 +11,10 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Messages de contact</h6>
+                    <h6>{{ __('Messages de contact') }}</h6>
                     <div class="d-flex gap-2 mt-1">
-                        <span class="badge badge-soft-primary">{{ $totalCount }} au total</span>
-                        <span class="badge badge-soft-warning">{{ $newCount }} nouveaux</span>
+                        <span class="badge badge-soft-primary">{{ $totalCount }} {{ __('au total') }}</span>
+                        <span class="badge badge-soft-warning">{{ $newCount }} {{ __('nouveaux') }}</span>
                     </div>
                 </div>
             </div>
@@ -33,30 +33,30 @@
                     <form method="GET" action="{{ route('sa.contact-messages.index') }}">
                         <div class="row g-3 align-items-end">
                             <div class="col-md-4">
-                                <label class="form-label">Rechercher</label>
+                                <label class="form-label">{{ __('Rechercher') }}</label>
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Nom, email, message..."
+                                    placeholder="{{ __('Nom, email, message...') }}"
                                     value="{{ request('search') }}">
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label">Statut</label>
+                                <label class="form-label">{{ __('Statut') }}</label>
                                 <select name="status" class="form-select">
-                                    <option value="">Tous les statuts</option>
-                                    <option value="new" {{ request('status') === 'new' ? 'selected' : '' }}>Nouveau</option>
-                                    <option value="read" {{ request('status') === 'read' ? 'selected' : '' }}>Lu</option>
-                                    <option value="replied" {{ request('status') === 'replied' ? 'selected' : '' }}>Répondu</option>
-                                    <option value="archived" {{ request('status') === 'archived' ? 'selected' : '' }}>Archivé</option>
+                                    <option value="">{{ __('Tous les statuts') }}</option>
+                                    <option value="new" {{ request('status') === 'new' ? 'selected' : '' }}>{{ __('Nouveau') }}</option>
+                                    <option value="read" {{ request('status') === 'read' ? 'selected' : '' }}>{{ __('Lu') }}</option>
+                                    <option value="replied" {{ request('status') === 'replied' ? 'selected' : '' }}>{{ __('Répondu') }}</option>
+                                    <option value="archived" {{ request('status') === 'archived' ? 'selected' : '' }}>{{ __('Archivé') }}</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label">Sujet</label>
+                                <label class="form-label">{{ __('Sujet') }}</label>
                                 <select name="subject" class="form-select">
-                                    <option value="">Tous les sujets</option>
-                                    <option value="question" {{ request('subject') === 'question' ? 'selected' : '' }}>Question générale</option>
-                                    <option value="support" {{ request('subject') === 'support' ? 'selected' : '' }}>Support technique</option>
-                                    <option value="billing" {{ request('subject') === 'billing' ? 'selected' : '' }}>Facturation</option>
-                                    <option value="partnership" {{ request('subject') === 'partnership' ? 'selected' : '' }}>Partenariat</option>
-                                    <option value="other" {{ request('subject') === 'other' ? 'selected' : '' }}>Autre</option>
+                                    <option value="">{{ __('Tous les sujets') }}</option>
+                                    <option value="question" {{ request('subject') === 'question' ? 'selected' : '' }}>{{ __('Question générale') }}</option>
+                                    <option value="support" {{ request('subject') === 'support' ? 'selected' : '' }}>{{ __('Support technique') }}</option>
+                                    <option value="billing" {{ request('subject') === 'billing' ? 'selected' : '' }}>{{ __('Facturation') }}</option>
+                                    <option value="partnership" {{ request('subject') === 'partnership' ? 'selected' : '' }}>{{ __('Partenariat') }}</option>
+                                    <option value="other" {{ request('subject') === 'other' ? 'selected' : '' }}>{{ __('Autre') }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2 d-flex gap-2">
@@ -78,13 +78,13 @@
                 <table class="table table-nowrap">
                     <thead class="thead-light">
                         <tr>
-                            <th>Date</th>
-                            <th>Nom</th>
-                            <th>Email</th>
-                            <th>Sujet</th>
-                            <th>Statut</th>
-                            <th>IP</th>
-                            <th class="no-sort">Actions</th>
+                            <th>{{ __('Date') }}</th>
+                            <th>{{ __('Nom') }}</th>
+                            <th>{{ __('Email') }}</th>
+                            <th>{{ __('Sujet') }}</th>
+                            <th>{{ __('Statut') }}</th>
+                            <th>{{ __('IP') }}</th>
+                            <th class="no-sort">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,7 +112,7 @@
                                     <div class="d-flex align-items-center gap-1">
                                         <a href="{{ route('sa.contact-messages.show', $msg) }}"
                                             class="btn btn-outline-white btn-sm d-inline-flex align-items-center">
-                                            <i class="isax isax-eye me-1"></i> Voir
+                                            <i class="isax isax-eye me-1"></i> {{ __('Voir') }}
                                         </a>
                                         <a href="#"
                                             class="btn btn-outline-white btn-sm d-inline-flex align-items-center text-danger"
@@ -125,7 +125,7 @@
                         @empty
                             <tr>
                                 <td colspan="7" class="text-center py-4 text-muted">
-                                    Aucun message de contact.
+                                    {{ __('Aucun message de contact.') }}
                                 </td>
                             </tr>
                         @endforelse
@@ -153,15 +153,15 @@
                         <div class="mb-3">
                             <img src="{{ URL::asset('build/img/icons/delete.svg') }}" alt="img">
                         </div>
-                        <h6 class="mb-1">Supprimer le message</h6>
-                        <p class="mb-3">Êtes-vous sûr de vouloir supprimer ce message de {{ $msg->name }} ?</p>
+                        <h6 class="mb-1">{{ __('Supprimer le message') }}</h6>
+                        <p class="mb-3">{{ __('Êtes-vous sûr de vouloir supprimer ce message de') }} {{ $msg->name }} ?</p>
                         <form method="POST" action="{{ route('sa.contact-messages.destroy', $msg) }}">
                             @csrf
                             @method('DELETE')
                             <div class="d-flex justify-content-center">
                                 <a href="javascript:void(0);" class="btn btn-outline-white me-3"
-                                    data-bs-dismiss="modal">Annuler</a>
-                                <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                                    data-bs-dismiss="modal">{{ __('Annuler') }}</a>
+                                <button type="submit" class="btn btn-danger">{{ __('Oui, supprimer') }}</button>
                             </div>
                         </form>
                     </div>

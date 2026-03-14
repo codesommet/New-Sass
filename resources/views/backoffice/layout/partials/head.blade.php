@@ -286,6 +286,31 @@
         /* Fix sidebar arrow direction */
         [dir="rtl"] .menu-arrow { transform: rotate(180deg); }
         [dir="rtl"] .submenu.active > a .menu-arrow { transform: rotate(90deg); }
+        /* Fix input-group icon/border direction for RTL (auth pages etc.) */
+        [dir="rtl"] .input-group > .input-group-text:first-child {
+            border-right: 1px solid var(--border-color) !important;
+            border-left: 0 !important;
+            border-radius: 0 5px 5px 0 !important;
+        }
+        [dir="rtl"] .input-group > .form-control:last-child,
+        [dir="rtl"] .input-group > .form-control:not(:first-child) {
+            border-radius: 5px 0 0 5px !important;
+            border-left: 1px solid var(--border-color) !important;
+            border-right: 0 !important;
+        }
+        [dir="rtl"] .border-start-0 { border-right: 0 !important; }
+        [dir="rtl"] .border-end-0 { border-left: 0 !important; }
+        [dir="rtl"] .ps-0 { padding-right: 0 !important; padding-left: revert !important; }
+        [dir="rtl"] .pe-0 { padding-left: 0 !important; padding-right: revert !important; }
+        /* Fix password toggle icon position in RTL */
+        [dir="rtl"] .toggle-password,
+        [dir="rtl"] .toggle-passwords,
+        [dir="rtl"] .toggle-passworda {
+            right: auto !important;
+            left: 10px !important;
+        }
+        /* Fix btn-close position in RTL (alerts) */
+        [dir="rtl"] .btn-close { left: 0; right: auto; }
     </style>
     @endif
 

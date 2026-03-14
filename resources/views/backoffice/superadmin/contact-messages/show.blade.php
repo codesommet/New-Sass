@@ -11,7 +11,7 @@
             <!-- Page Header -->
             <div class="d-flex d-block align-items-center justify-content-between flex-wrap gap-3 mb-3">
                 <div>
-                    <h6>Message de {{ $contactMessage->name }}</h6>
+                    <h6>{{ __('Message de') }} {{ $contactMessage->name }}</h6>
                     <div class="d-flex gap-2 mt-1">
                         <span class="badge {{ $contactMessage->status_badge }}">{{ $contactMessage->status_label }}</span>
                         <span class="badge badge-soft-info">{{ $contactMessage->subject_label }}</span>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="d-flex gap-2">
                     <a href="{{ route('sa.contact-messages.index') }}" class="btn btn-outline-white d-flex align-items-center">
-                        <i class="isax isax-arrow-left me-1"></i> Retour
+                        <i class="isax isax-arrow-left me-1"></i> {{ __('Retour') }}
                     </a>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="card-title mb-0">Message</h6>
+                            <h6 class="card-title mb-0">{{ __('Message') }}</h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-4" style="white-space: pre-wrap;">{{ $contactMessage->message }}</div>
@@ -49,34 +49,34 @@
                 <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="card-title mb-0">Informations</h6>
+                            <h6 class="card-title mb-0">{{ __('Informations') }}</h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label text-muted fs-12">Nom</label>
+                                <label class="form-label text-muted fs-12">{{ __('Nom') }}</label>
                                 <p class="fw-medium mb-0">{{ $contactMessage->name }}</p>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-muted fs-12">Email</label>
+                                <label class="form-label text-muted fs-12">{{ __('Email') }}</label>
                                 <p class="mb-0">
                                     <a href="mailto:{{ $contactMessage->email }}">{{ $contactMessage->email }}</a>
                                 </p>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-muted fs-12">Sujet</label>
+                                <label class="form-label text-muted fs-12">{{ __('Sujet') }}</label>
                                 <p class="mb-0"><span class="badge badge-soft-info">{{ $contactMessage->subject_label }}</span></p>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-muted fs-12">Date</label>
+                                <label class="form-label text-muted fs-12">{{ __('Date') }}</label>
                                 <p class="mb-0">{{ $contactMessage->created_at?->translatedFormat('d M Y à H:i') }}</p>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-muted fs-12">Adresse IP</label>
+                                <label class="form-label text-muted fs-12">{{ __('Adresse IP') }}</label>
                                 <p class="mb-0 text-muted">{{ $contactMessage->ip_address ?? '-' }}</p>
                             </div>
                             @if($contactMessage->read_at)
                             <div class="mb-3">
-                                <label class="form-label text-muted fs-12">Lu le</label>
+                                <label class="form-label text-muted fs-12">{{ __('Lu le') }}</label>
                                 <p class="mb-0">{{ $contactMessage->read_at->translatedFormat('d M Y à H:i') }}</p>
                             </div>
                             @endif
@@ -86,7 +86,7 @@
                     <!-- Change Status -->
                     <div class="card">
                         <div class="card-header">
-                            <h6 class="card-title mb-0">Changer le statut</h6>
+                            <h6 class="card-title mb-0">{{ __('Changer le statut') }}</h6>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('sa.contact-messages.update-status', $contactMessage) }}">
@@ -94,14 +94,14 @@
                                 @method('PATCH')
                                 <div class="mb-3">
                                     <select name="status" class="form-select">
-                                        <option value="new" {{ $contactMessage->status === 'new' ? 'selected' : '' }}>Nouveau</option>
-                                        <option value="read" {{ $contactMessage->status === 'read' ? 'selected' : '' }}>Lu</option>
-                                        <option value="replied" {{ $contactMessage->status === 'replied' ? 'selected' : '' }}>Répondu</option>
-                                        <option value="archived" {{ $contactMessage->status === 'archived' ? 'selected' : '' }}>Archivé</option>
+                                        <option value="new" {{ $contactMessage->status === 'new' ? 'selected' : '' }}>{{ __('Nouveau') }}</option>
+                                        <option value="read" {{ $contactMessage->status === 'read' ? 'selected' : '' }}>{{ __('Lu') }}</option>
+                                        <option value="replied" {{ $contactMessage->status === 'replied' ? 'selected' : '' }}>{{ __('Répondu') }}</option>
+                                        <option value="archived" {{ $contactMessage->status === 'archived' ? 'selected' : '' }}>{{ __('Archivé') }}</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100">
-                                    <i class="isax isax-tick-circle me-1"></i> Mettre à jour
+                                    <i class="isax isax-tick-circle me-1"></i> {{ __('Mettre à jour') }}
                                 </button>
                             </form>
                         </div>
@@ -109,7 +109,7 @@
 
                     <!-- Reply Button -->
                     <a href="mailto:{{ $contactMessage->email }}?subject=Re: {{ $contactMessage->subject_label }}" class="btn btn-outline-white w-100 d-flex align-items-center justify-content-center">
-                        <i class="isax isax-sms me-1"></i> Répondre par email
+                        <i class="isax isax-sms me-1"></i> {{ __('Répondre par email') }}
                     </a>
                 </div>
             </div>

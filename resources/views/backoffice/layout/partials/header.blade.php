@@ -91,7 +91,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"> <a
                                             href="{{ url('stock-summary') }}">{{ __('Rapports') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de relevé de compte') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de relevé de compte') }}</li>
                                 @endif
                                 @if (Route::is('add-blog'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a href="{{ url('index') }}"><i
@@ -105,28 +106,32 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('credit-notes') }}">{{ __('Avoirs') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter des avoirs') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter des avoirs') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('add-customer'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('customers') }}">{{ __('Client') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter un nouveau client') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Ajouter un nouveau client') }}</li>
                                 @endif
                                 @if (Route::is('add-debit-notes'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('debit-notes') }}">{{ __('Note de débit') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter une note de débit') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Ajouter une note de débit') }}</li>
                                 @endif
                                 @if (Route::is('add-delivery-challan'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('delivery-challans') }}">{{ __('Bon de livraison') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Créer un nouveau bon de livraison') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Créer un nouveau bon de livraison') }}</li>
                                 @endif
                                 @if (Route::is('add-invoice'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -134,7 +139,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('invoices') }}">{{ __('Facture') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Créer une nouvelle facture') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Créer une nouvelle facture') }}</li>
                                 @endif
                                 @if (Route::is('add-product'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -148,7 +154,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('purchase-orders') }}">{{ __('Bons de commande') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter des bons de commande') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Ajouter des bons de commande') }}</li>
                                 @endif
                                 @if (Route::is('add-purchases'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -156,7 +163,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('purchases') }}">{{ __('Achat') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter un achat') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter un achat') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('add-quotation'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -164,13 +172,15 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('quotations') }}">{{ __('Devis') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter des devis') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter des devis') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('admin-dashboard'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('ai-configuration'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -184,7 +194,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('stock-summary') }}">{{ __('Rapport annuel') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport annuel') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport annuel') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('api-keys'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -210,7 +221,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('stock-summary') }}">{{ __('Rapports') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport du bilan') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport du bilan') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('bank-accounts-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -224,13 +236,15 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('bank-accounts') }}">{{ __('Comptes bancaires') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Types de comptes bancaires') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Types de comptes bancaires') }}</li>
                                 @endif
                                 @if (Route::is('bank-accounts'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Comptes bancaires') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Comptes bancaires') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('barcode-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -244,7 +258,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('stock-summary') }}">{{ __('Rapport') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des meilleures ventes') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des meilleures ventes') }}</li>
                                 @endif
                                 @if (Route::is('best-categories'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -260,7 +275,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('blogs') }}">{{ __('Blog') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Commentaires de blog') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Commentaires de blog') }}</li>
                                 @endif
                                 @if (Route::is('blog-details'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -268,7 +284,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('blogs') }}">{{ __('Blogs') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tous les blogs') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tous les blogs') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('blog-tags'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -284,7 +301,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a href="{{ url('blogs') }}">
                                             Blogs</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tous les blogs') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tous les blogs') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('calendar'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -298,7 +316,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center">{{ __('Applications') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Historique des appels') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Historique des appels') }}</li>
                                 @endif
                                 @if (Route::is('cash-flow'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -306,7 +325,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('stock-summary') }}">{{ __('Rapports') }}</a> </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de flux de trésorerie') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de flux de trésorerie') }}</li>
                                 @endif
                                 @if (Route::is('category'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -319,7 +339,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center">{{ __('Graphiques') }} </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Graphiques Apex') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Graphiques Apex') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('chart-c3'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -333,7 +354,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"> {{ __('Graphiques') }} </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Graphiques Flot') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Graphiques Flot') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('chart-js'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -347,14 +369,16 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center">{{ __('Graphiques') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Graphique Morris') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Graphique Morris') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('chart-peity'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center">{{ __('Graphiques') }} </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Graphiques Peity') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Graphiques Peity') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('chat'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -381,7 +405,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Super Admin') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('company-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -393,7 +418,8 @@
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Messages de contact') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Messages de contact') }}</li>
                                 @endif
                                 @if (Route::is('contacts'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -406,7 +432,8 @@
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('credit-notes'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -456,13 +483,15 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('customer-quotations') }}">{{ __('Devis') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter des devis') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Ajouter des devis') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('customer-dashboard'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('customer-details'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -475,21 +504,24 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item">Reports</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des clients en retard') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des clients en retard') }}</li>
                                 @endif
                                 @if (Route::is('customer-invoice-details'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item">Reports</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de factures') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de factures') }}</li>
                                 @endif
                                 @if (Route::is('customer-invoice-report'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item">Reports</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de factures') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de factures') }}</li>
                                 @endif
                                 @if (Route::is('customer-invoices'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -508,7 +540,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
                                     <li class="breadcrumb-item">Reports</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport récapitulatif des paiements') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport récapitulatif des paiements') }}</li>
                                 @endif
                                 @if (Route::is('customer-plans-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -526,7 +559,8 @@
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Factures récurrentes') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Factures récurrentes') }}</li>
                                 @endif
                                 @if (Route::is('customer-security-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -547,7 +581,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item">Reports</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des clients') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des clients') }}</li>
                                 @endif
                                 @if (Route::is('customers'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -561,7 +596,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableaux de données') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Tableaux de données') }}</li>
                                 @endif
                                 @if (Route::is('database-backup'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -575,21 +611,24 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Notes de débit') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Notes de débit') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('delete-account-request'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Demande de suppression de compte') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Demande de suppression de compte') }}</li>
                                 @endif
                                 @if (Route::is('delivery-challans'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Bons de livraison') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Bons de livraison') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('domain'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -604,7 +643,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier les blogs') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modifier les blogs') }}</li>
                                 @endif
                                 @if (Route::is('edit-credit-notes'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -618,21 +658,24 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier le client') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modifier le client') }}</li>
                                 @endif
                                 @if (Route::is('edit-debit-notes'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier la note de débit') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modifier la note de débit') }}</li>
                                 @endif
                                 @if (Route::is('edit-delivery-challan'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier le bon de livraison') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modifier le bon de livraison') }}</li>
                                 @endif
                                 @if (Route::is('edit-invoice'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -642,35 +685,40 @@
                                     <li class="breadcrumb-item">
                                         <a href="{{ url('invoices') }}">{{ __('Facture') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier la facture') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modifier la facture') }}</li>
                                 @endif
                                 @if (Route::is('edit-product'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier le produit') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modifier le produit') }}</li>
                                 @endif
                                 @if (Route::is('edit-purchases-orders'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier les bons de commande') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modifier les bons de commande') }}</li>
                                 @endif
                                 @if (Route::is('edit-purchases'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier l\'achat') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier l\'achat') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('edit-quotation'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modifier les devis') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modifier les devis') }}</li>
                                 @endif
                                 @if (Route::is('email-reply'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -685,14 +733,16 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Paramètres e-mail') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Paramètres e-mail') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('email-templates'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modèles d\'e-mail') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modèles d\'e-mail') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('email'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -713,7 +763,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des dépenses') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des dépenses') }}</li>
                                 @endif
                                 @if (Route::is('expenses'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -734,7 +785,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('file-manager'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -742,21 +794,24 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Applications') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Gestionnaire de fichiers') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Gestionnaire de fichiers') }}</li>
                                 @endif
                                 @if (Route::is('form-basic-inputs'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Éléments de formulaire') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Éléments de formulaire') }}</li>
                                 @endif
                                 @if (Route::is('form-checkbox-radios'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Cases à cocher et boutons radio') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Cases à cocher et boutons radio') }}</li>
                                 @endif
                                 @if (Route::is('form-editors'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -770,42 +825,48 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Éléments de formulaire') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Éléments de formulaire') }}</li>
                                 @endif
                                 @if (Route::is('form-fileupload'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Téléchargement de fichier') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Téléchargement de fichier') }}</li>
                                 @endif
                                 @if (Route::is('form-floating-labels'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Étiquettes flottantes') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Étiquettes flottantes') }}</li>
                                 @endif
                                 @if (Route::is('form-grid-gutters'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Gouttières de grille') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Gouttières de grille') }}</li>
                                 @endif
                                 @if (Route::is('form-horizontal'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Formulaire horizontal') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Formulaire horizontal') }}</li>
                                 @endif
                                 @if (Route::is('form-input-groups'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Groupes de saisie') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Groupes de saisie') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('form-mask'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -819,42 +880,48 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Sélecteur de formulaire') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Sélecteur de formulaire') }}</li>
                                 @endif
                                 @if (Route::is('form-range-slider'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Curseur de plage') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Curseur de plage') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('form-select2'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Sélection de formulaire') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Sélection de formulaire') }}</li>
                                 @endif
                                 @if (Route::is('form-validation'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Validation de formulaire') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Validation de formulaire') }}</li>
                                 @endif
                                 @if (Route::is('form-vertical'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Formulaire vertical') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Formulaire vertical') }}</li>
                                 @endif
                                 @if (Route::is('form-wizard'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Assistant de formulaire') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Assistant de formulaire') }}</li>
                                 @endif
                                 @if (Route::is('gallery'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -875,28 +942,32 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Bootstrap') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Bootstrap') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('icon-feather'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Feather') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Feather') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('icon-flag'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes de drapeaux') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Icônes de drapeaux') }}</li>
                                 @endif
                                 @if (Route::is('icon-fontawesome'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Fontawesome') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Icônes Fontawesome') }}</li>
                                 @endif
                                 @if (Route::is('icon-ionic'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -910,7 +981,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Material') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Material') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('icon-pe7'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -931,35 +1003,40 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Simpleline') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Simpleline') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('icon-tabler'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Tabler') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Tabler') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('icon-themify'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Themify') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Themify') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('icon-typicon'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Typicon') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Typicon') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('icon-weather'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Weather') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Icônes Weather') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('income-report'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -967,7 +1044,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item">Reports</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapports de revenus') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapports de revenus') }}</li>
                                 @endif
                                 @if (Route::is('incomes'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -982,7 +1060,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item " aria-current="page">{{ __('Applications') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Appel entrant') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Appel entrant') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('integrations-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -997,7 +1076,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item">Reports</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport d\'inventaire') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport d\'inventaire') }}</li>
                                 @endif
                                 @if (Route::is('inventory'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1011,7 +1091,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Détail de facture admin') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Détail de facture admin') }}</li>
                                 @endif
                                 @if (Route::is('invoice-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1032,7 +1113,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Modèles de facture') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Modèles de facture') }}</li>
                                 @endif
                                 @if (Route::is('invoice'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1082,34 +1164,39 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('layout-dark'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('layout-mini'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('layout-rtl'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a href="{{ url('index') }}"
                                             class="d-inline-flex align-items-center"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('layout-single', 'layout-transparent', 'layout-without-header'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('localization-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1124,7 +1211,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de stock faible') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de stock faible') }}</li>
                                 @endif
                                 @if (Route::is('maintenance-mode'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1139,7 +1227,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Cartes') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Cartes Leaflet') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Cartes Leaflet') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('maps-vector'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1147,7 +1236,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Cartes') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Cartes vectorielles') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Cartes vectorielles') }}</li>
                                 @endif
                                 @if (Route::is('membership-addons'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1199,7 +1289,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Applications') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Appel sortant') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Appel sortant') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('packages-grid'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1230,7 +1321,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport récapitulatif des paiements') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport récapitulatif des paiements') }}</li>
                                 @endif
                                 @if (Route::is('payments'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1280,7 +1372,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Politique de confidentialité') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Politique de confidentialité') }}</li>
                                 @endif
                                 @if (Route::is('products'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1302,7 +1395,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de pertes et profits') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de pertes et profits') }}</li>
                                 @endif
                                 @if (Route::is('purchase-order-report', 'purchase-orders-report'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1310,14 +1404,16 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des bons de commande') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des bons de commande') }}</li>
                                 @endif
                                 @if (Route::is('purchase-orders'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Bons de commande') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Bons de commande') }}</li>
                                 @endif
                                 @if (Route::is('purchase-return-report'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1325,7 +1421,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des retours d\'achat') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des retours d\'achat') }}</li>
                                 @endif
                                 @if (Route::is('purchase-transaction'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1333,7 +1430,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Super Admin') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Transaction d\'achat') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Transaction d\'achat') }}</li>
                                 @endif
                                 @if (Route::is('purchases-report'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1341,7 +1439,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des achats') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des achats') }}</li>
                                 @endif
                                 @if (Route::is('purchases'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1356,7 +1455,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des devis') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des devis') }}</li>
                                 @endif
                                 @if (Route::is('quotations'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1370,7 +1470,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rôles et permissions') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rôles et permissions') }}</li>
                                 @endif
                                 @if (Route::is('sales-orders'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1379,7 +1480,8 @@
                                     </li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('stock-summary') }}">{{ __('Rapports') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des commandes de vente') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des commandes de vente') }}</li>
                                 @endif
                                 @if (Route::is('sales-report'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1388,7 +1490,8 @@
                                     </li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('stock-summary') }}">{{ __('Rapports') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des ventes') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des ventes') }}</li>
                                 @endif
                                 @if (Route::is('sales-returns'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1397,7 +1500,8 @@
                                     </li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('stock-summary') }}">{{ __('Rapports') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport des retours de vente') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport des retours de vente') }}</li>
                                 @endif
                                 @if (Route::is('sass-settings'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1412,7 +1516,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item d-flex align-items-center">{{ __('Applications') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Liste de recherche') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Liste de recherche') }}</li>
                                 @endif
                                 @if (Route::is('security-settings', 'seo-setup', 'sitemap', 'sms-gateways', 'storage'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1436,14 +1541,16 @@
                                     </li>
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('stock-summary') }}">{{ __('Rapports') }}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de stock vendu') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de stock vendu') }}</li>
                                 @endif
                                 @if (Route::is('starter'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Page de démarrage') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Page de démarrage') }}</li>
                                 @endif
                                 @if (Route::is('states'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1451,7 +1558,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Localisations') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('États/Régions') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('États/Régions') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('stock-history'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1459,7 +1567,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport d\'historique de stock') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport d\'historique de stock') }}</li>
                                 @endif
                                 @if (Route::is('stock-summary'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1467,7 +1576,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de synthèse de stock') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de synthèse de stock') }}</li>
                                 @endif
                                 @if (Route::is('subscribers'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1483,7 +1593,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Super Admin') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Abonnements') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Abonnements') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('super-admin-dashboard'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1491,14 +1602,16 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Super Admin') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableau de bord') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('supplier-payments'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Paiements fournisseurs') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Paiements fournisseurs') }}</li>
                                 @endif
                                 @if (Route::is('supplier-report'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1506,7 +1619,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport fournisseurs') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport fournisseurs') }}</li>
                                 @endif
                                 @if (Route::is('suppliers'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1514,7 +1628,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport fournisseurs') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport fournisseurs') }}</li>
                                 @endif
                                 @if (Route::is('system-backup'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1535,7 +1650,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Tableaux de base') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Tableaux de base') }}</li>
                                 @endif
                                 @if (Route::is('tax-rates'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1550,21 +1666,24 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item " aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport fiscal') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport fiscal') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('terms-condition'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Conditions générales') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Conditions générales') }}</li>
                                 @endif
                                 @if (Route::is('testimonials'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Témoignages') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Témoignages') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('thermal-printer'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1578,35 +1697,40 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Aperçu du ticket') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Aperçu du ticket') }}</li>
                                 @endif
                                 @if (Route::is('ticket-kanban'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Vue Kanban des tickets') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Vue Kanban des tickets') }}</li>
                                 @endif
                                 @if (Route::is('tickets-list'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Liste des tickets') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Liste des tickets') }}</li>
                                 @endif
                                 @if (Route::is('tickets'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Liste des tickets') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Liste des tickets') }}</li>
                                 @endif
                                 @if (Route::is('timeline'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Chronologie') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Chronologie') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('todo-list'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1629,7 +1753,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Transactions') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Transactions') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('trial-balance'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1637,7 +1762,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Rapports') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Rapport de balance générale') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ __('Rapport de balance générale') }}</li>
                                 @endif
                                 @if (Route::is('units'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1651,7 +1777,8 @@
                                             href="{{ url('index') }}"><i
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Utilisateurs') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Utilisateurs') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('video-call'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1659,7 +1786,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Applications') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Appel vidéo') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Appel vidéo') }}
+                                    </li>
                                 @endif
                                 @if (Route::is('voice-call'))
                                     <li class="breadcrumb-item d-flex align-items-center"><a
@@ -1667,7 +1795,8 @@
                                                 class="isax isax-home-2 me-1"></i>{{ __('Accueil') }}</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">{{ __('Applications') }}</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Appel vocal') }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ __('Appel vocal') }}
+                                    </li>
                                 @endif
                                 @if (Route::is([
                                         'ui-accordion',
@@ -1830,28 +1959,127 @@
                             $currentLocale = app()->getLocale();
                             $locales = [
                                 'fr' => ['name' => 'Français', 'flag' => 'fr.svg'],
-                                'en' => ['name' => 'English',  'flag' => 'us.svg'],
-                                'ar' => ['name' => 'العربية',  'flag' => 'ae.svg'],
+                                'en' => ['name' => 'English', 'flag' => 'us.svg'],
+                                'ar' => ['name' => 'العربية', 'flag' => 'ae.svg'],
                             ];
+                            $localeSwitchRoute = (auth()->check() && auth()->user()->tenant_id === null)
+                                ? route('sa.locale.switch')
+                                : route('bo.locale.switch');
                         @endphp
                         <div class="nav-item dropdown has-arrow flag-nav me-2">
-                            <a class="btn btn-menubar" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
-                                <img src="{{ URL::asset('build/img/flags/' . ($locales[$currentLocale]['flag'] ?? 'fr.svg')) }}" alt="{{ __('Langue') }}" class="img-fluid" width="22">
+                            <a class="btn btn-menubar" data-bs-toggle="dropdown" href="javascript:void(0);"
+                                role="button">
+                                <img src="{{ URL::asset('build/img/flags/' . ($locales[$currentLocale]['flag'] ?? 'fr.svg')) }}"
+                                    alt="{{ __('Langue') }}" class="img-fluid" width="22">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end p-2">
                                 @foreach ($locales as $code => $locale)
                                     <li>
-                                        <form method="POST" action="{{ route('bo.locale.switch') }}">
+                                        <form method="POST" action="{{ $localeSwitchRoute }}"
+                                            id="locale-form-{{ $code }}" class="locale-switch-form">
                                             @csrf
                                             <input type="hidden" name="locale" value="{{ $code }}">
-                                            <button type="submit" class="dropdown-item d-flex align-items-center {{ $currentLocale === $code ? 'active' : '' }}">
-                                                <img src="{{ URL::asset('build/img/flags/' . $locale['flag']) }}" alt="{{ $locale['name'] }}" class="me-2" width="22">{{ $locale['name'] }}
-                                            </button>
+                                            @if ($code === 'ar' && $currentLocale !== 'ar')
+                                                <button type="button" class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal" data-bs-target="#arabicLanguageWarningModal">
+                                                    <img src="{{ URL::asset('build/img/flags/' . $locale['flag']) }}"
+                                                        alt="{{ $locale['name'] }}" class="me-2"
+                                                        width="22">{{ $locale['name'] }}
+                                                </button>
+                                            @elseif ($code === 'en')
+                                                <button type="button" class="dropdown-item d-flex align-items-center"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#englishLanguageComingSoonModal">
+                                                    <img src="{{ URL::asset('build/img/flags/' . $locale['flag']) }}"
+                                                        alt="{{ $locale['name'] }}" class="me-2"
+                                                        width="22">{{ $locale['name'] }}
+                                                </button>
+                                            @else
+                                                <button type="submit"
+                                                    class="dropdown-item d-flex align-items-center {{ $currentLocale === $code ? 'active' : '' }}">
+                                                    <img src="{{ URL::asset('build/img/flags/' . $locale['flag']) }}"
+                                                        alt="{{ $locale['name'] }}" class="me-2"
+                                                        width="22">{{ $locale['name'] }}
+                                                </button>
+                                            @endif
                                         </form>
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
+
+                        <!-- Arabic Language Warning Modal -->
+                        <div class="modal fade" id="arabicLanguageWarningModal" tabindex="-1"
+                            data-bs-backdrop="false" aria-labelledby="arabicLanguageWarningModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border shadow">
+                                    <div class="modal-header bg-warning-subtle">
+                                        <h5 class="modal-title" id="arabicLanguageWarningModalLabel">
+                                            <i
+                                                class="isax isax-warning-2 text-warning me-2"></i>{{ __('Avertissement') }}
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="mb-2">
+                                            <strong>{{ __('La version arabe n\'est pas encore complète.') }}</strong>
+                                        </p>
+                                        <p class="text-muted mb-0">
+                                            {{ __('Certaines parties de l\'interface peuvent encore s\'afficher en français. Nous travaillons activement sur la traduction complète.') }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">{{ __('Annuler') }}</button>
+                                        <button type="button" class="btn btn-warning"
+                                            id="confirmArabicSwitch">{{ __('Continuer quand même') }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- English Language Coming Soon Modal -->
+                        <div class="modal fade" id="englishLanguageComingSoonModal" tabindex="-1"
+                            data-bs-backdrop="false" aria-labelledby="englishLanguageComingSoonModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border shadow">
+                                    <div class="modal-header bg-info-subtle">
+                                        <h5 class="modal-title" id="englishLanguageComingSoonModalLabel">
+                                            <i class="isax isax-info-circle text-info me-2"></i>{{ __('Coming Soon') }}
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center py-4">
+                                        <i class="isax isax-timer-1 text-info mb-3" style="font-size: 48px;"></i>
+                                        <p class="mb-2">
+                                            <strong>{{ __('La version anglaise arrive bientôt !') }}</strong>
+                                        </p>
+                                        <p class="text-muted mb-0">
+                                            {{ __('Nous travaillons sur la traduction anglaise. Elle sera disponible prochainement.') }}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-info"
+                                            data-bs-dismiss="modal">{{ __('Compris') }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const confirmBtn = document.getElementById('confirmArabicSwitch');
+                                if (confirmBtn) {
+                                    confirmBtn.addEventListener('click', function() {
+                                        document.getElementById('locale-form-ar').submit();
+                                    });
+                                }
+                            });
+                        </script>
 
                         <!-- Notification -->
                         @php
@@ -1940,7 +2168,8 @@
                                                                 @csrf
                                                                 <button type="submit"
                                                                     class="btn p-0 border-0 bg-transparent"
-                                                                    data-bs-toggle="tooltip" title="{{ __('Marquer comme lu') }}">
+                                                                    data-bs-toggle="tooltip"
+                                                                    title="{{ __('Marquer comme lu') }}">
                                                                     <span
                                                                         class="notification-read rounded-circle bg-info d-inline-block"></span>
                                                                 </button>
@@ -2007,7 +2236,8 @@
                                     </span>
                                     <div>
                                         <h6 class="fs-14 fw-medium mb-1">{{ auth()->user()->name }}</h6>
-                                        <p class="fs-13">{{ auth()->user()->roles->first()?->name ?? __('Utilisateur') }}</p>
+                                        <p class="fs-13">
+                                            {{ auth()->user()->roles->first()?->name ?? __('Utilisateur') }}</p>
                                     </div>
                                 </div>
 
@@ -2128,7 +2358,7 @@
                         })
                         .catch(function() {
                             searchResults.innerHTML =
-                                '<div class="search-empty"><i class="isax isax-warning-2"></i>{{ __("Erreur de recherche") }}</div>';
+                                '<div class="search-empty"><i class="isax isax-warning-2"></i>{{ __('Erreur de recherche') }}</div>';
                             searchResults.style.display = 'block';
                         });
                 }, 300);
@@ -2138,7 +2368,7 @@
                 if (results.length === 0) {
                     searchResults.innerHTML = '<div class="search-empty">' +
                         '<i class="isax isax-search-normal"></i>' +
-                        '{{ __("Aucun résultat pour") }} "<strong>' + escapeHtml(query) + '</strong>"</div>';
+                        '{{ __('Aucun résultat pour') }} "<strong>' + escapeHtml(query) + '</strong>"</div>';
                     searchResults.style.display = 'block';
                     return;
                 }

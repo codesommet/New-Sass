@@ -95,10 +95,10 @@
 
 @if ($isAuth)
 
-    <body class="bg-white">
+    <body class="bg-white @if($isRtl) layout-mode-rtl @endif">
     @elseif ($isStatus)
 
-        <body class="bg-white coming-soon">
+        <body class="bg-white coming-soon @if($isRtl) layout-mode-rtl @endif">
         @elseif ($page === 'general-invoice-5')
 
             <body class="bg-dark">

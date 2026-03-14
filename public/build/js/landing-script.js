@@ -102,6 +102,8 @@
             mouseY = e.clientY;
             cursorInner.style.left = mouseX + 'px';
             cursorInner.style.top = mouseY + 'px';
+            cursorInner.style.visibility = 'visible';
+            cursorOuter.style.visibility = 'visible';
         });
 
         function animateOuter() {

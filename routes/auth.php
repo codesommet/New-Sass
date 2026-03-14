@@ -46,12 +46,20 @@ Route::middleware(['web', 'identifyTenant', 'tenantActive', 'setTenantContext'])
 
         // Lock screen route (optional)
         Route::get('/lock-screen', function () {
-            return view('auth.lock-screen');
+            $locale = app()->getLocale();
+            $view = $locale !== 'fr' && view()->exists("{$locale}.auth.lock-screen")
+                ? "{$locale}.auth.lock-screen"
+                : 'auth.lock-screen';
+            return view($view);
         })->name('lock-screen');
 
         // Two-step verification route (placeholder)
         Route::get('/two-step', function () {
-            return view('auth.two-step');
+            $locale = app()->getLocale();
+            $view = $locale !== 'fr' && view()->exists("{$locale}.auth.two-step")
+                ? "{$locale}.auth.two-step"
+                : 'auth.two-step';
+            return view($view);
         })->name('two-step');
     });
 });

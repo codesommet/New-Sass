@@ -15,7 +15,7 @@
                     <h6>
                         <a href="{{ route('sa.access.roles.index') }}">
                             <i class="isax isax-arrow-left me-1"></i>
-                            Roles
+                            {{ __('Roles') }}
                         </a>
                     </h6>
                 </div>
@@ -24,7 +24,7 @@
                         <a href="javascript:void(0);"
                             class="dropdown-toggle btn btn-outline-white d-inline-flex align-items-center"
                             data-bs-toggle="dropdown">
-                            Role : <span class="fw-normal ms-1">{{ ucfirst($role->name) }}</span>
+                            {{ __('Role') }} : <span class="fw-normal ms-1">{{ ucfirst($role->name) }}</span>
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-end">
                             @foreach ($roles as $r)
@@ -33,9 +33,9 @@
                                         class="dropdown-item {{ $r->id === $role->id ? 'active' : '' }}">
                                         {{ ucfirst($r->name) }}
                                         @if ($r->tenant_id)
-                                            <small class="text-muted">({{ $r->tenant?->name ?? 'Tenant' }})</small>
+                                            <small class="text-muted">({{ $r->tenant?->name ?? __('Tenant') }})</small>
                                         @else
-                                            <small class="text-muted">(Global)</small>
+                                            <small class="text-muted">({{ __('Global') }})</small>
                                         @endif
                                     </a>
                                 </li>
@@ -81,12 +81,12 @@
                                             <table class="table border mb-0">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th class="w-50">Module</th>
-                                                        <th>Create</th>
-                                                        <th>Edit</th>
-                                                        <th>Delete</th>
-                                                        <th>View</th>
-                                                        <th>Allow All</th>
+                                                        <th class="w-50">{{ __('Module') }}</th>
+                                                        <th>{{ __('Create') }}</th>
+                                                        <th>{{ __('Edit') }}</th>
+                                                        <th>{{ __('Delete') }}</th>
+                                                        <th>{{ __('View') }}</th>
+                                                        <th>{{ __('Allow All') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -130,7 +130,7 @@
 
                 <div class="mt-3 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">
-                        <i class="isax isax-tick-circle me-1"></i>Save Permissions
+                        <i class="isax isax-tick-circle me-1"></i>{{ __('Save Permissions') }}
                     </button>
                 </div>
             </form>

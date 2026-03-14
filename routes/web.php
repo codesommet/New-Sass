@@ -113,6 +113,7 @@ Route::prefix('backoffice')
             require __DIR__ . '/backoffice/trash.php';
             require __DIR__ . '/backoffice/export.php';
             require __DIR__ . '/backoffice/documentation.php';
+            require __DIR__ . '/backoffice/support.php';
         });
     });
 
@@ -133,9 +134,13 @@ Route::prefix('admin')
     ->middleware([
         'web',
         'auth',
-        'isSuperAdmin'
+        'isSuperAdmin',
+        'setSuperAdminLocale',
     ])
     ->group(function () {
+
+        // Quick language switch from header
+        Route::post('/locale/switch', \App\Http\Controllers\SuperAdmin\LocaleSwitchController::class)->name('locale.switch');
 
         require __DIR__ . '/superadmin/dashboard.php';
         require __DIR__ . '/superadmin/tenants.php';
@@ -147,6 +152,8 @@ Route::prefix('admin')
         require __DIR__ . '/superadmin/announcements.php';
         require __DIR__ . '/superadmin/activity-logs.php';
         require __DIR__ . '/superadmin/contact-messages.php';
+        require __DIR__ . '/superadmin/support-tickets.php';
+        require __DIR__ . '/superadmin/account-requests.php';
     });
 
 // this route for testing the theming system, can be removed later

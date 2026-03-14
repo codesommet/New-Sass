@@ -85,29 +85,59 @@
                     {{-- ============================================================ --}}
                     @if (auth()->check() && auth()->user()->tenant_id === null)
                         <ul>
-                            <li class="menu-title"><span>{{ __('Super Admin') }}</span></li>
+                            {{-- ─── PRINCIPAL ─── --}}
+                            <li class="menu-title"><span>{{ __('Principal') }}</span></li>
                             <li>
                                 <ul>
                                     <li class="{{ request()->routeIs('sa.dashboard') ? 'active' : '' }}">
                                         <a href="{{ route('sa.dashboard') }}">
-                                            <i class="isax isax-home-25"></i><span>{{ __('Tableau de bord') }}</span>
+                                            <i class="isax isax-element-45"></i><span>{{ __('Tableau de bord') }}</span>
                                         </a>
                                     </li>
+                                </ul>
+                            </li>
+
+                            {{-- ─── GESTION ─── --}}
+                            <li class="menu-title"><span>{{ __('Gestion') }}</span></li>
+                            <li>
+                                <ul>
                                     <li class="{{ request()->routeIs('sa.tenants.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.tenants.index') }}">
                                             <i class="isax isax-buildings-25"></i><span>{{ __('Tenants') }}</span>
                                         </a>
                                     </li>
-                                    <li class="{{ request()->routeIs('sa.plans.*') ? 'active' : '' }}">
-                                        <a href="{{ route('sa.plans.index') }}">
-                                            <i class="isax isax-layer5"></i><span>{{ __('Plans') }}</span>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);"
+                                            class="{{ request()->routeIs('sa.plans.*', 'sa.subscriptions.*') ? 'active subdrop' : '' }}">
+                                            <i class="isax isax-layer5"></i><span>{{ __('Facturation') }}</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <ul>
+                                            <li><a href="{{ route('sa.plans.index') }}"
+                                                    class="{{ request()->routeIs('sa.plans.*') ? 'active' : '' }}">{{ __('Plans') }}</a>
+                                            </li>
+                                            <li><a href="{{ route('sa.subscriptions.index') }}"
+                                                    class="{{ request()->routeIs('sa.subscriptions.*') ? 'active' : '' }}">{{ __('Abonnements') }}</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="{{ request()->routeIs('sa.delete-requests.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.delete-requests.index') }}">
+                                            <i class="isax isax-trash"></i><span>{{ __('Demandes de suppression') }}</span>
                                         </a>
                                     </li>
-                                    <li class="{{ request()->routeIs('sa.subscriptions.*') ? 'active' : '' }}">
-                                        <a href="{{ route('sa.subscriptions.index') }}">
-                                            <i class="isax isax-receipt-text5"></i><span>{{ __('Abonnements') }}</span>
+                                    <li class="{{ request()->routeIs('sa.account-requests.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.account-requests.index') }}">
+                                            <i class="isax isax-user-add"></i><span>{{ __('Demandes de compte') }}</span>
                                         </a>
                                     </li>
+                                </ul>
+                            </li>
+
+                            {{-- ─── MODÈLES ─── --}}
+                            <li class="menu-title"><span>{{ __('Modèles') }}</span></li>
+                            <li>
+                                <ul>
                                     <li class="{{ request()->routeIs('sa.templates.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.templates.index') }}">
                                             <i class="isax isax-document-text"></i><span>{{ __('Modèles PDF') }}</span>
@@ -118,19 +148,16 @@
                                             <i class="isax isax-additem"></i><span>{{ __('Catalogue modèles') }}</span>
                                         </a>
                                     </li>
-                                    <li class="{{ request()->routeIs('sa.delete-requests.*') ? 'active' : '' }}">
-                                        <a href="{{ route('sa.delete-requests.index') }}">
-                                            <i class="isax isax-trash"></i><span>{{ __('Demandes de suppression') }}</span>
-                                        </a>
-                                    </li>
+                                </ul>
+                            </li>
+
+                            {{-- ─── COMMUNICATION ─── --}}
+                            <li class="menu-title"><span>{{ __('Communication') }}</span></li>
+                            <li>
+                                <ul>
                                     <li class="{{ request()->routeIs('sa.announcements.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.announcements.index') }}">
                                             <i class="isax isax-notification"></i><span>{{ __('Annonces') }}</span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->routeIs('sa.activity-logs.*') ? 'active' : '' }}">
-                                        <a href="{{ route('sa.activity-logs.index') }}">
-                                            <i class="isax isax-note-215"></i><span>{{ __("Journal d'activité") }}</span>
                                         </a>
                                     </li>
                                     <li class="{{ request()->routeIs('sa.contact-messages.*') ? 'active' : '' }}">
@@ -143,9 +170,33 @@
                                             <i class="isax isax-directbox-notif"></i><span>{{ __('Newsletter') }}</span>
                                         </a>
                                     </li>
+                                </ul>
+                            </li>
+
+                            {{-- ─── SUPPORT ─── --}}
+                            <li class="menu-title"><span>{{ __('Support') }}</span></li>
+                            <li>
+                                <ul>
+                                    <li class="{{ request()->routeIs('sa.support-tickets.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.support-tickets.index') }}">
+                                            <i class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            {{-- ─── SUPERVISION ─── --}}
+                            <li class="menu-title"><span>{{ __('Supervision') }}</span></li>
+                            <li>
+                                <ul>
+                                    <li class="{{ request()->routeIs('sa.activity-logs.*') ? 'active' : '' }}">
+                                        <a href="{{ route('sa.activity-logs.index') }}">
+                                            <i class="isax isax-note-215"></i><span>{{ __("Journal d'activité") }}</span>
+                                        </a>
+                                    </li>
                                     <li class="{{ request()->routeIs('sa.access.*') ? 'active' : '' }}">
                                         <a href="{{ route('sa.access.roles.index') }}">
-                                            <i class="isax isax-shield-tick"></i><span>{{ __('Rôles & Permissions') }}</span>
+                                            <i class="isax isax-shield-tick5"></i><span>{{ __('Rôles & Permissions') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -284,64 +335,48 @@
                             <li class="menu-title"><span>{{ __('Finance') }}</span></li>
                             <li>
                                 <ul>
-                                    <li class="submenu">
-                                        <a href="javascript:void(0);"
-                                            class="{{ request()->routeIs('bo.finance.*') ? 'active subdrop' : '' }}">
-                                            <i class="isax isax-bank5"></i><span>{{ __('Finance') }}</span>
-                                            <span class="menu-arrow"></span>
+                                    <li class="{{ request()->routeIs('bo.finance.bank-accounts.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.finance.bank-accounts.index') }}">
+                                            <i class="isax isax-bank5"></i><span>{{ __('Comptes bancaires') }}</span>
                                         </a>
-                                        <ul>
-                                            <li><a href="{{ route('bo.finance.bank-accounts.index') }}"
-                                                    class="{{ request()->routeIs('bo.finance.bank-accounts.*') ? 'active' : '' }}">{{ __('Comptes bancaires') }}</a></li>
-                                            <li><a href="{{ route('bo.finance.expenses.index') }}"
-                                                    class="{{ request()->routeIs('bo.finance.expenses.*') ? 'active' : '' }}">{{ __('Dépenses') }}</a>
-                                            </li>
-                                            <li><a href="{{ route('bo.finance.incomes.index') }}"
-                                                    class="{{ request()->routeIs('bo.finance.incomes.*') ? 'active' : '' }}">{{ __('Revenus') }}</a>
-                                            </li>
-                                            <li><a href="{{ route('bo.finance.money-transfers.index') }}"
-                                                    class="{{ request()->routeIs('bo.finance.money-transfers.*') ? 'active' : '' }}">{{ __('Transferts') }}</a>
-                                            </li>
-                                            <li><a href="{{ route('bo.finance.categories.index') }}"
-                                                    class="{{ request()->routeIs('bo.finance.categories.*') ? 'active' : '' }}">{{ __('Catégories') }}</a>
-                                            </li>
-                                            <li><a href="{{ route('bo.finance.loans.index') }}"
-                                                    class="{{ request()->routeIs('bo.finance.loans.*') ? 'active' : '' }}">{{ __('Prêts') }}</a>
-                                            </li>
-                                        </ul>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.finance.expenses.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.finance.expenses.index') }}">
+                                            <i class="isax isax-money-send5"></i><span>{{ __('Dépenses') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.finance.incomes.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.finance.incomes.index') }}">
+                                            <i class="isax isax-money-recive5"></i><span>{{ __('Revenus') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.finance.money-transfers.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.finance.money-transfers.index') }}">
+                                            <i class="isax isax-arrange-square-25"></i><span>{{ __('Transferts') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.finance.categories.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.finance.categories.index') }}">
+                                            <i class="isax isax-category-25"></i><span>{{ __('Catégories') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.finance.loans.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.finance.loans.index') }}">
+                                            <i class="isax isax-percentage-square5"></i><span>{{ __('Prêts') }}</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
 
-                            {{-- ─── PRO ─── --}}
-                            <li class="menu-title"><span>{{ __('Pro') }}</span></li>
+                            {{-- ─── RAPPORTS ─── --}}
+                            <li class="menu-title"><span>{{ __('Rapports') }}</span></li>
                             <li>
                                 <ul>
-                                    <li class="submenu">
-                                        <a href="javascript:void(0);"
-                                            class="{{ request()->routeIs('bo.pro.*') ? 'active subdrop' : '' }}">
-                                            <i class="isax isax-crown-15"></i><span>{{ __('Pro') }}</span>
-                                            <span class="menu-arrow"></span>
+                                    <li class="{{ request()->routeIs('bo.pro.rapports.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.pro.rapports.index') }}">
+                                            <i class="isax isax-document-text5"></i><span>{{ __('Générer un rapport') }}</span>
                                         </a>
-                                        <ul>
-                                            {{-- Factures récurrentes - moved to Settings --}}
-                                            {{-- Rappels de factures - moved to Settings > Notifications --}}
-                                            {{-- V2: Succursales
-                                            <li><a href="{{ route('bo.pro.branches.index') }}"
-                                                    class="{{ request()->routeIs('bo.pro.branches.*') ? 'active' : '' }}">{{ __('Succursales') }}</a>
-                                            </li> --}}
-                                            <li><a href="{{ route('bo.pro.rapports.index') }}"
-                                                    class="{{ request()->routeIs('bo.pro.rapports.*') ? 'active' : '' }}">{{ __('Rapports') }}</a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                </ul>
-                            </li>
-
-                            {{-- ─── ANALYSES ─── --}}
-                            <li class="menu-title"><span>{{ __('Analyses') }}</span></li>
-                            <li>
-                                <ul>
                                     <li class="submenu">
                                         <a href="javascript:void(0);"
                                             class="{{ request()->routeIs('bo.reports.*') ? 'active subdrop' : '' }}">
@@ -365,6 +400,18 @@
                                                     class="{{ request()->routeIs('bo.reports.inventory') ? 'active' : '' }}">{{ __('Inventaire') }}</a>
                                             </li>
                                         </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            {{-- ─── SUPPORT ─── --}}
+                            <li class="menu-title"><span>{{ __('Support') }}</span></li>
+                            <li>
+                                <ul>
+                                    <li class="{{ request()->routeIs('bo.support.tickets.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.support.tickets.index') }}">
+                                            <i class="isax isax-ticket5"></i><span>{{ __('Tickets de support') }}</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
@@ -401,29 +448,37 @@
                                             <i class="isax isax-trash5"></i><span>{{ __('Corbeille') }}</span>
                                         </a>
                                     </li>
+                                </ul>
+                            </li>
 
-                                    {{-- Paramètres --}}
-                                    <li class="submenu">
-                                        <a href="javascript:void(0);"
-                                            class="{{ request()->routeIs('bo.account.settings.*', 'bo.settings.*', 'bo.pro.recurring-invoices.*') ? 'active subdrop' : '' }}">
-                                            <i class="isax isax-setting-25"></i><span>{{ __('Paramètres') }}</span>
-                                            <span class="menu-arrow"></span>
+                            {{-- ─── PARAMÈTRES ─── --}}
+                            <li class="menu-title"><span>{{ __('Paramètres') }}</span></li>
+                            <li>
+                                <ul>
+                                    <li class="{{ request()->routeIs('bo.account.settings.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.account.settings.edit') }}">
+                                            <i class="isax isax-user-edit5"></i><span>{{ __('Mon compte') }}</span>
                                         </a>
-                                        <ul>
-                                            <li><a href="{{ route('bo.account.settings.edit') }}"
-                                                    class="{{ request()->routeIs('bo.account.settings.*') ? 'active' : '' }}">{{ __('Mon compte') }}</a></li>
-                                            <li><a href="{{ route('bo.settings.company.edit') }}"
-                                                    class="{{ request()->routeIs('bo.settings.company.*') ? 'active' : '' }}">{{ __('Entreprise') }}</a>
-                                            </li>
-                                            <li><a href="{{ route('bo.settings.invoice.edit') }}"
-                                                    class="{{ request()->routeIs('bo.settings.invoice.*') ? 'active' : '' }}">{{ __('Facturation') }}</a>
-                                            </li>
-                                            <li><a href="{{ route('bo.pro.recurring-invoices.index') }}"
-                                                    class="{{ request()->routeIs('bo.pro.recurring-invoices.*') ? 'active' : '' }}">{{ __('Factures récurrentes') }}</a></li>
-                                            <li><a href="{{ route('bo.settings.locale.edit') }}"
-                                                    class="{{ request()->routeIs('bo.settings.locale.*') ? 'active' : '' }}">{{ __('Localisation') }}</a>
-                                            </li>
-                                        </ul>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.settings.company.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.settings.company.edit') }}">
+                                            <i class="isax isax-buildings-25"></i><span>{{ __('Entreprise') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.settings.invoice.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.settings.invoice.edit') }}">
+                                            <i class="isax isax-receipt-text5"></i><span>{{ __('Facturation') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.pro.recurring-invoices.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.pro.recurring-invoices.index') }}">
+                                            <i class="isax isax-repeat5"></i><span>{{ __('Factures récurrentes') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('bo.settings.locale.*') ? 'active' : '' }}">
+                                        <a href="{{ route('bo.settings.locale.edit') }}">
+                                            <i class="isax isax-global5"></i><span>{{ __('Localisation') }}</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
@@ -431,6 +486,16 @@
                     @endif
 
                     <div class="sidebar-footer">
+                        <div class="trial-item bg-white text-center border">
+                            <div class="bg-light p-3 text-center upgrade-image">
+                                <img src="{{ URL::asset('assets/images/250px-WhatsApp.svg.png') }}" alt="img" style="width: 40px; height: 40px;">
+                            </div>
+                            <div class="p-2">
+                                <h6 class="fs-12 fw-semibold mb-1">{{ __('Besoin d\'aide ?') }}</h6>
+                                <a href="https://wa.me/212632582096" target="_blank" class="btn btn-sm btn-success w-100 d-flex align-items-center justify-content-center"><i class="fa-brands fa-whatsapp me-1"></i>{{ __('WhatsApp') }}</a>
+                            </div>
+                            <a href="javascript:void(0);" class="close-icon fs-6"><i class="fa-solid fa-x"></i></a>
+                        </div>
                         <ul class="menu-list">
                             @if (auth()->check() && auth()->user()->tenant_id !== null)
                                 <li>

@@ -10,7 +10,12 @@ class ForgotPasswordController extends Controller
 {
     public function showForgotForm()
     {
-        return view('auth.forgot-password');
+        $locale = app()->getLocale();
+        $view = $locale !== 'fr' && view()->exists("{$locale}.auth.forgot-password")
+            ? "{$locale}.auth.forgot-password"
+            : 'auth.forgot-password';
+
+        return view($view);
     }
 
     public function sendResetLink(ForgotPasswordRequest $request)
